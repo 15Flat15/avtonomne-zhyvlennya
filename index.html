@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --bg: #f1f5f9;
+      --bg: #f4f7f9;
       --card: #ffffff;
       --text-dark: #334155;
       --text-soft: #64748b;
@@ -19,22 +19,41 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text-dark);
-      line-height: 1.6;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Центрування всього контенту */
     }
 
+    /* Декорована шапка */
     header {
+      width: 100%;
       background: #ffffff;
-      padding: 70px 20px;
+      padding: 60px 20px;
       text-align: center;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 3px solid var(--accent);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: relative;
+      box-sizing: border-box;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
     }
     header h1 { font-size: 32px; margin: 0 0 10px; color: #1e293b; }
-    header p { font-size: 18px; color: var(--text-soft); }
+    header p { font-size: 18px; color: var(--text-soft); margin: 0 auto; max-width: 600px; }
 
     .btn {
       display: inline-block;
-      margin-top: 15px;
-      padding: 12px 26px;
+      margin-top: 20px;
+      padding: 12px 28px;
       background: var(--accent);
       color: #ffffff;
       text-decoration: none;
@@ -47,37 +66,46 @@
     .btn:hover { background: #1e293b; transform: translateY(-2px); }
     .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); margin: 5px; }
 
-    section { padding: 60px 20px; max-width: 1100px; margin: auto; }
-    h2 { color: #1e293b; text-align: center; margin-bottom: 40px; font-size: 26px; }
+    section { 
+      padding: 50px 20px; 
+      width: 100%;
+      max-width: 1100px; 
+      box-sizing: border-box;
+      text-align: center; /* Центрування заголовків та тексту в секціях */
+    }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
+      gap: 25px;
+      justify-content: center;
     }
     .card {
       background: var(--card);
       border-radius: 20px;
-      padding: 30px;
-      text-align: center;
+      padding: 25px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .card img { width: 100%; border-radius: 12px; margin-bottom: 20px; background: #f8fafc; min-height: 150px; }
-
-    .trust-grid {
+    
+    /* Секція "Як ми працюємо" з меншими відступами */
+    .work-steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
+      gap: 15px; /* Зменшено відступ між картками */
     }
-    .trust-item { text-align: center; }
-    .trust-item b { display: block; color: var(--accent); font-size: 18px; margin-bottom: 5px; }
+    .step-card {
+      padding: 15px;
+      background: #fff;
+      border-radius: 12px;
+    }
+    .step-card h4 { margin: 5px 0; }
+    .step-card p { margin: 5px 0; font-size: 14px; }
 
-    /* Модальні вікна */
+    /* Модальне вікно (вужче та видовжене) */
     .modal {
       display: none;
       position: fixed;
@@ -85,28 +113,38 @@
       left: 0; top: 0;
       width: 100%; height: 100%;
       background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(4px);
     }
     .modal-content {
       background: #ffffff;
-      margin: 10% auto;
-      padding: 35px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 500px;
+      margin: 5% auto;
+      padding: 40px 30px;
+      border-radius: 24px;
+      width: 85%;
+      max-width: 380px; /* Вужче вікно */
       position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      text-align: left;
     }
-    .close { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: var(--text-soft); }
+    .close { 
+      position: absolute; 
+      right: 20px; 
+      top: 15px; 
+      font-size: 35px; /* Більший хрестик */
+      cursor: pointer; 
+      color: var(--text-soft); 
+      line-height: 1;
+    }
+    .close:hover { color: #f87171; }
 
-    footer { background: #ffffff; text-align: center; padding: 50px; border-top: 1px solid var(--border); color: var(--text-soft); }
+    footer { width: 100%; background: #ffffff; text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); box-sizing: border-box; }
   </style>
 </head>
 <body>
 
 <header>
   <h1>Автономне живлення</h1>
-  <p>Професійні рішення для енергонезалежності оселі</p>
+  <p>Професійні рішення для вашої енергонезалежності</p>
   <a class="btn" href="https://t.me/Flat15">Зв'язатися в Telegram</a>
 </header>
 
@@ -114,57 +152,53 @@
   <h2>⚡ Наші комплекти</h2>
   <div class="cards">
     <div class="card">
-      <img src="inv42.jpg" alt="Система 4.2 кВт">
       <h3>Комплект 4.2 кВт</h3>
-      <p>Оптимально для квартир та офісів. Витягує все необхідне.</p>
+      <p>Оптимально для квартир: холодильник, котел, інтернет.</p>
       <button class="btn btn-outline" onclick="openModal('m42')">Характеристики ⚙️</button>
       <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
 
     <div class="card">
-      <img src="inv62.jpg" alt="Система 6.2 кВт">
       <h3>Комплект 6.2 кВт</h3>
-      <p>Потужне рішення для приватних будинків та бізнесу.</p>
+      <p>Потужне рішення для будинків та великих споживачів.</p>
       <button class="btn btn-outline" onclick="openModal('m62')">Характеристики ⚙️</button>
       <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
 
     <div class="card">
-      <img src="battery.jpg" alt="Батареї">
-      <h3>LiFePO₄ Батареї</h3>
-      <p>Збірки 2.5 кВт·год / 5 кВт·год / 10 кВт·год.</p>
+      <h3>Батареї LiFePO₄</h3>
+      <p>Ємність 2.5 / 5 / 10 кВт·год на ваш вибір.</p>
       <button class="btn btn-outline" onclick="openModal('mBat')">Про батареї 🔋</button>
       <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
   </div>
 </section>
 
-<section style="background: #e2e8f0; width: 100vw; margin-left: calc(-50vw + 50%);">
-  <div style="max-width: 1100px; margin: auto; padding: 60px 20px;">
+<section style="background: #eef2f6; width: 100vw; display: flex; justify-content: center;">
+  <div style="max-width: 1100px; width: 100%; padding: 40px 20px;">
     <h2>💎 Чому обирають нас</h2>
-    <div class="trust-grid">
-      <div class="trust-item"><b>Grade A</b>Тільки нові комірки</div>
-      <div class="trust-item"><b>24h Test</b>Тривала перевірка</div>
-      <div class="trust-item"><b>Smart BMS</b>Повний захист</div>
-      <div class="trust-item"><b>Support</b>Технічна допомога</div>
+    <div class="cards">
+      <div class="card" style="padding:15px;"><b>Grade A</b><p style="font-size:14px; margin:5px 0;">Нові комірки</p></div>
+      <div class="card" style="padding:15px;"><b>24h Test</b><p style="font-size:14px; margin:5px 0;">Повна перевірка</p></div>
+      <div class="card" style="padding:15px;"><b>Smart BMS</b><p style="font-size:14px; margin:5px 0;">Захист системи</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <h2>🛠 Як ми працюємо</h2>
-  <div class="cards">
-    <div class="card" style="border:none; box-shadow:none; background:transparent;">
-      <h4>1. Підбір</h4>
-      <p>Рахуємо вашу потужність безкоштовно.</p>
+  <div class="work-steps">
+    <div class="step-card">
+      <h4>1. Консультація</h4>
+      <p>Визначаємо ваші потреби та навантаження.</p>
     </div>
-    <div class="card" style="border:none; box-shadow:none; background:transparent;">
+    <div class="step-card">
       <h4>2. Збірка</h4>
-      <p>Збираємо та балансуємо систему.</p>
+      <p>Збираємо систему та тестуємо її роботу.</p>
     </div>
-    <div class="card" style="border:none; box-shadow:none; background:transparent;">
-      <h4>3. Відправка</h4>
-      <p>Доставка Новою Поштою по Україні.</p>
+    <div class="step-card">
+      <h4>3. Доставка</h4>
+      <p>Відправляємо замовлення Новою Поштою.</p>
     </div>
   </div>
 </section>
@@ -172,45 +206,41 @@
 <div id="m42" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('m42')">&times;</span>
-    <h3>Дані 4.2 кВт</h3>
-    <ul>
-      <li>Номінал: 4200 Вт (пік 8.4 кВт)</li>
-      <li>Напруга системи: 24В</li>
-      <li>Заряд: до 100А</li>
-      <li>Чиста синусоїда</li>
-    </ul>
+    <h3 style="margin-top:0">Дані 4.2 кВт</h3>
+    <p><b>Потужність:</b> 4200 Вт</p>
+    <p><b>Напруга:</b> 24В</p>
+    <p><b>Заряд:</b> до 100А</p>
+    <p><b>Тип:</b> Чиста синусоїда</p>
+    <p style="font-size:13px; color:var(--text-soft); margin-top:20px;">*Підходить для більшості побутових приладів.</p>
   </div>
 </div>
 
 <div id="m62" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('m62')">&times;</span>
-    <h3>Дані 6.2 кВт</h3>
-    <ul>
-      <li>Номінал: 6200 Вт</li>
-      <li>Напруга системи: 48В</li>
-      <li>Wi-Fi моніторинг</li>
-      <li>MPPT контролер</li>
-    </ul>
+    <h3 style="margin-top:0">Дані 6.2 кВт</h3>
+    <p><b>Потужність:</b> 6200 Вт</p>
+    <p><b>Напруга:</b> 48В</p>
+    <p><b>MPPT:</b> Вбудований</p>
+    <p><b>Wi-Fi:</b> Підтримується</p>
+    <p style="font-size:13px; color:var(--text-soft); margin-top:20px;">*Професійна серія для високих навантажень.</p>
   </div>
 </div>
 
 <div id="mBat" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('mBat')">&times;</span>
-    <h3>Про наші акумулятори</h3>
-    <ul>
-      <li>Тип: LiFePO4 (найбезпечніші)</li>
-      <li>Цикли: понад 6000 (10+ років)</li>
-      <li>Розумна BMS з балансуванням</li>
-      <li>Ємності: 2.5, 5, 10 кВт·год</li>
-    </ul>
+    <h3 style="margin-top:0">Про LiFePO₄</h3>
+    <p><b>Цикли:</b> 6000+</p>
+    <p><b>Термін:</b> 10+ років</p>
+    <p><b>Ємність:</b> 2.5/5/10 кВт·год</p>
+    <p><b>BMS:</b> Розумний захист</p>
   </div>
 </div>
 
 <footer>
   <p>© 2026 Автономне живлення • Україна</p>
-  <p>Зв'язок: <a href="https://t.me/Flat15" style="color:var(--accent)">@Flat15</a></p>
+  <p>Telegram: <a href="https://t.me/Flat15" style="color:var(--accent)">@Flat15</a></p>
 </footer>
 
 <script>
