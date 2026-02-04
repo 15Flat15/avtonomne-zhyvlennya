@@ -7,123 +7,182 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: #0f172a;
       color: #e5e7eb;
+      line-height: 1.6;
     }
     header {
       background: linear-gradient(135deg, #020617, #1e293b);
       padding: 60px 20px;
       text-align: center;
+      border-bottom: 2px solid #22c55e;
     }
-    header h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-    header p {
-      font-size: 18px;
-      color: #cbd5f5;
-    }
+    header h1 { font-size: 32px; margin-bottom: 10px; color: #fff; }
+    header p { font-size: 18px; color: #cbd5f5; }
+
     .btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 14px 26px;
+      margin-top: 15px;
+      padding: 12px 24px;
       background: #22c55e;
       color: #022c22;
       text-decoration: none;
       font-weight: bold;
       border-radius: 8px;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
     }
-    section {
-      padding: 50px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
+    .btn:hover { background: #4ade80; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #22c55e;
       color: #22c55e;
-      margin-bottom: 20px;
+      margin-right: 10px;
     }
+
+    section { padding: 50px 20px; max-width: 1100px; margin: auto; }
+    h2 { color: #22c55e; margin-bottom: 30px; text-align: center; }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
     .card {
-      background: #020617;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid #1e293b;
-    }
-    footer {
-      background: #020617;
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid #334155;
       text-align: center;
-      padding: 30px;
-      font-size: 14px;
-      color: #94a3b8;
+      transition: 0.3s;
     }
+    .card:hover { border-color: #22c55e; transform: scale(1.02); }
+    .card h3 { margin-top: 0; color: #fff; }
+    .price-tag { font-size: 20px; color: #22c55e; font-weight: bold; display: block; margin: 10px 0; }
+
+    /* Модальні вікна */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      background: #1e293b;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 20px;
+      width: 85%;
+      max-width: 500px;
+      position: relative;
+      border: 1px solid #22c55e;
+    }
+    .close {
+      position: absolute;
+      right: 20px; top: 15px;
+      font-size: 28px;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+    .modal ul { text-align: left; padding-left: 20px; }
+    .modal li { margin-bottom: 10px; }
+
+    footer { background: #020617; text-align: center; padding: 40px; color: #94a3b8; }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Автономне живлення для дому та бізнесу</h1>
-  <p>Інвертори PowMr + LiFePO₄ батареї з BMS</p>
-  <a class="btn" href="https://t.me/Flat15">Отримати консультацію</a>
+  <h1>Автономне живлення для дому</h1>
+  <p>Інвертори нової генерації та надійні LiFePO₄ збірки</p>
+  <a class="btn" href="https://t.me/Flat15">Консультація у Telegram</a>
 </header>
 
 <section>
-  <h2>Що ми пропонуємо</h2>
+  <h2>Наші пропозиції</h2>
   <div class="cards">
     <div class="card">
-      <h3>⚡ Інвертори PowMr</h3>
-      <p>3 кВт та 5 кВт — для квартири, дому або офісу.</p>
+      <h3>⚡ Комплект 4.2 кВт</h3>
+      <p>Оптимально для квартири: холодильник, світло, ПК, мікрохвильовка.</p>
+      <span class="price-tag">Під ключ</span>
+      <button class="btn btn-outline" onclick="openModal('m42')">⚙️ Характеристики</button>
+      <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
+
     <div class="card">
-      <h3>🔋 LiFePO₄ батареї</h3>
-      <p>5 кВт·год, зібрані з перевірених елементів + надійна BMS.</p>
+      <h3>🚀 Комплект 6.2 кВт</h3>
+      <p>Для приватного будинку: насоси, пральні машини, кондиціонери.</p>
+      <span class="price-tag">Максимальна потужність</span>
+      <button class="btn btn-outline" onclick="openModal('m62')">⚙️ Характеристики</button>
+      <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
+
     <div class="card">
-      <h3>🧠 Підбір під навантаження</h3>
-      <p>Розрахунок потужності, запуск холодильників, насосів тощо.</p>
+      <h3>🔋 Батареї LiFePO₄</h3>
+      <p>Окремі модулі: 2.5 кВт·год / 5 кВт·год / 10 кВт·год</p>
+      <span class="price-tag">6000+ циклів</span>
+      <button class="btn btn-outline" onclick="openModal('mBat')">⚙️ Деталі збірки</button>
+      <a class="btn" href="https://t.me/Flat15">Замовити</a>
     </div>
   </div>
 </section>
 
-<section>
-  <h2>Чому нам довіряють</h2>
-  <ul>
-    <li>✔ Тестування кожної батареї</li>
-    <li>✔ Захист від перезаряду та глибокого розряду</li>
-    <li>✔ Пояснюємо просто, без «води»</li>
-    <li>✔ Підтримка після продажу</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Готові комплекти</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Комплект 3 кВт</h3>
-      <p>Інвертор 3 кВт + LiFePO₄ 5 кВт·год</p>
-      <strong>Для квартири</strong>
-    </div>
-    <div class="card">
-      <h3>Комплект 5 кВт</h3>
-      <p>Інвертор 5 кВт + LiFePO₄ 5–10 кВт·год</p>
-      <strong>Для дому або бізнесу</strong>
-    </div>
+<div id="m42" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('m42')">&times;</span>
+    <h3>Характеристики 4.2 кВт</h3>
+    <ul>
+      <li><strong>Інвертор:</strong> 4200W постійного навантаження</li>
+      <li><strong>Пікова потужність:</strong> 8400W</li>
+      <li><strong>Напруга системи:</strong> 24V</li>
+      <li><strong>Струм заряду:</strong> до 100A</li>
+    </ul>
   </div>
-</section>
+</div>
 
-<section>
-  <h2>Зв’язок</h2>
-  <p>Напишіть нам — підберемо рішення саме для вас.</p>
-  <a class="btn" href="https://t.me/Flat15">Написати в Telegram</a>
-</section>
+<div id="m62" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('m62')">&times;</span>
+    <h3>Характеристики 6.2 кВт</h3>
+    <ul>
+      <li><strong>Інвертор:</strong> 6200W (Чиста синусоїда)</li>
+      <li><strong>Напруга системи:</strong> 48V (висока ефективність)</li>
+      <li><strong>Сонячний контролер:</strong> Вбудований MPPT</li>
+      <li><strong>Функції:</strong> Підмішування енергії, Wi-Fi моніторинг</li>
+    </ul>
+  </div>
+</div>
+
+<div id="mBat" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('mBat')">&times;</span>
+    <h3>Варіанти батарей</h3>
+    <ul>
+      <li><strong>2.5 кВт·год:</strong> Компактний варіант (24V)</li>
+      <li><strong>5.0 кВт·год:</strong> Найпопулярніший (24V/48V)</li>
+      <li><strong>10 кВт·год:</strong> Для повної автономії (48V)</li>
+      <li><strong>Якість:</strong> Елементи Grade A, розумна BMS з балансирами</li>
+    </ul>
+  </div>
+</div>
 
 <footer>
-  © 2026 Автономне живлення • Україна
+  <p>© 2026 Автономне живлення • Україна</p>
+  <p style="font-size: 12px;">Якісна енергія для вашого комфорту</p>
 </footer>
+
+<script>
+  function openModal(id) { document.getElementById(id).style.display = "block"; }
+  function closeModal(id) { document.getElementById(id).style.display = "none"; }
+  window.onclick = function(event) {
+    if (event.target.className === 'modal') { event.target.style.display = "none"; }
+  }
+</script>
 
 </body>
 </html>
