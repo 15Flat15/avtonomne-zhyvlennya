@@ -4,179 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autonom Energy — автономне живлення</title>
-
 <style>
-:root{
---bg:#f3f5f7;
---white:#ffffff;
---dark:#0f172a;
---muted:#64748b;
---accent:#1e293b;
---border:#e5e7eb;
---soft:#f8fafc;
-}
-
+:root{--bg:#f3f5f7;--white:#fff;--dark:#0f172a;--muted:#64748b;--accent:#1e293b;--border:#e5e7eb}
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;
-background:var(--bg);
-color:var(--dark)
-}
-
-/* HEADER */
-header{
-position:sticky;top:0;z-index:50;
-background:rgba(255,255,255,.97);
-border-bottom:1px solid var(--border)
-}
-.header{
-max-width:1200px;margin:auto;
-padding:14px 20px;
-display:flex;align-items:center;justify-content:space-between
-}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;background:var(--bg);color:var(--dark)}
+header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border)}
+.header{max-width:1200px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
 .burger{font-size:26px;cursor:pointer}
-.logo{font-weight:900;letter-spacing:.6px}
+.logo{font-weight:900}
 .cart-btn{font-size:22px;cursor:pointer;position:relative}
-.cart-count{
-position:absolute;top:-6px;right:-8px;
-background:#b91c1c;color:#fff;
-font-size:11px;padding:2px 6px;border-radius:999px
-}
-
-/* SIDE MENU */
-.side{
-position:fixed;top:0;left:-100%;
-width:300px;height:100%;
-background:#fff;z-index:100;
-padding:24px;
-transition:.35s;
-box-shadow:8px 0 30px rgba(0,0,0,.15)
-}
+.cart-count{position:absolute;top:-6px;right:-8px;background:#b91c1c;color:#fff;font-size:11px;padding:2px 6px;border-radius:999px}
+.side{position:fixed;top:0;left:-100%;width:300px;height:100%;background:#fff;z-index:100;padding:24px;transition:.35s;box-shadow:8px 0 30px rgba(0,0,0,.15)}
 .side.active{left:0}
-.side-header{
-display:flex;justify-content:space-between;align-items:center;
-margin-bottom:30px
-}
-.side a{
-display:block;padding:14px 0;
-border-bottom:1px solid var(--border);
-font-weight:600
-}
-
-/* MAIN */
+.side-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.side a{display:block;padding:14px 0;border-bottom:1px solid var(--border);font-weight:600}
 main{max-width:1200px;margin:auto;padding:40px 20px}
 section{margin-bottom:100px}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:28px
-}
-
-/* CARD */
-.card{
-background:#fff;
-border-radius:22px;
-border:1px solid var(--border);
-overflow:hidden;
-cursor:pointer;
-transition:.3s
-}
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 25px 60px rgba(0,0,0,.1)
-}
-.img{
-height:200px;
-background:linear-gradient(135deg,#e5e7eb,#f8fafc);
-display:flex;align-items:center;justify-content:center;
-font-weight:700;color:#94a3b8
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.card{background:#fff;border-radius:22px;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:.3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 25px 60px rgba(0,0,0,.1)}
+.img{height:200px;background:linear-gradient(135deg,#e5e7eb,#f8fafc);display:flex;align-items:center;justify-content:center;font-weight:700;color:#94a3b8}
 .card-body{padding:22px}
 .price{font-size:20px;font-weight:800;margin:10px 0}
-.buy{
-padding:12px 18px;
-background:var(--accent);color:#fff;
-border:none;border-radius:12px;
-cursor:pointer;width:100%
-}
-
-/* MODAL PRODUCT */
-.modal{
-position:fixed;inset:0;
-background:rgba(15,23,42,.85);
-display:none;z-index:200
-}
+.buy{padding:12px 18px;background:var(--accent);color:#fff;border:none;border-radius:12px;cursor:pointer;width:100%}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.85);display:none;z-index:200}
 .modal.active{display:block}
-.modal-box{
-background:#fff;
-max-width:1100px;
-margin:20px auto;
-border-radius:30px;
-max-height:92vh;
-overflow:auto
-}
-.modal-head{
-position:sticky;top:0;
-background:#fff;
-padding:20px;
-border-bottom:1px solid var(--border);
-display:flex;justify-content:space-between;align-items:center
-}
+.modal-box{background:#fff;max-width:1100px;margin:20px auto;border-radius:30px;max-height:92vh;overflow:auto}
+.modal-head{position:sticky;top:0;background:#fff;padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .close{font-size:28px;cursor:pointer}
-
-/* GALLERY */
-.gallery{
-display:flex;gap:12px;
-padding:20px
-}
-.gallery div{
-flex:1;height:240px;
-background:linear-gradient(135deg,#e5e7eb,#f8fafc);
-border-radius:18px
-}
-
+.gallery{display:flex;gap:12px;padding:20px}
+.gallery div{flex:1;height:240px;background:linear-gradient(135deg,#e5e7eb,#f8fafc);border-radius:18px}
 .detail{padding:30px}
-.detail h2{margin-top:0}
-.detail .price{font-size:28px;margin-bottom:16px}
-
-/* CART */
 .cart-page{display:none}
-.cart-box{
-background:#fff;
-border-radius:24px;
-padding:30px;
-border:1px solid var(--border)
-}
-.cart-item{
-display:flex;justify-content:space-between;
-padding:16px 0;border-bottom:1px solid var(--border)
-}
-.cart-total{
-font-size:22px;font-weight:800;margin-top:20px
-}
-.checkout{
-margin-top:20px;
-padding:14px;
-width:100%;
-background:var(--accent);
-color:#fff;border:none;border-radius:14px
-}
-
-/* FLOAT */
-.float{
-position:fixed;right:20px;bottom:20px;
-background:var(--accent);color:#fff;
-padding:14px 22px;border-radius:999px;
-font-weight:600
-}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:300}
+.cart-overlay.active{display:block}
+.cart-box{background:#fff;max-width:500px;margin:40px auto;border-radius:24px;padding:30px;position:relative}
+.cart-close{position:absolute;top:16px;right:16px;font-size:26px;cursor:pointer}
+.cart-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
+.cart-total{font-size:22px;font-weight:800;margin-top:20px}
+.checkout{margin-top:20px;padding:14px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:14px}
+.float{position:fixed;right:20px;bottom:20px;background:var(--accent);color:#fff;padding:14px 22px;border-radius:999px;font-weight:600}
 </style>
 </head>
-
 <body>
-
 <header>
 <div class="header">
 <div class="burger" onclick="toggleMenu()">☰</div>
@@ -184,12 +54,8 @@ font-weight:600
 <div class="cart-btn" onclick="openCart()">🛒 <span id="cartCount" class="cart-count">0</span></div>
 </div>
 </header>
-
 <nav class="side" id="menu">
-<div class="side-header">
-<strong>Меню</strong>
-<span class="close" onclick="toggleMenu()">✕</span>
-</div>
+<div class="side-header"><strong>Меню</strong><span class="close" onclick="toggleMenu()">✕</span></div>
 <a onclick="show('home')">Головна</a>
 <a onclick="show('inverters')">Інвертори</a>
 <a onclick="show('batteries')">Батареї</a>
@@ -198,187 +64,36 @@ font-weight:600
 <a onclick="show('delivery')">Доставка</a>
 <a onclick="show('contacts')">Контакти</a>
 </nav>
-
 <main>
-
-<section id="home">
-<h2>Популярні рішення</h2>
-<p>Найчастіше обирають для квартир і будинків.</p>
-<div class="grid" id="homeList"></div>
-</section>
-
-<section id="kits" style="display:none">
-<h2>Готові комплекти</h2>
-<p>
-Комплексні рішення «під ключ» — інвертор, батарея, кабелі та налаштування.
-</p>
-<div class="grid" id="kitList"></div>
-</section>
-
-<section id="about" style="display:none">
-<h2>Про нас</h2>
-<p>
-Autonom Energy з’явився не як магазин, а як практичне рішення.
-Починалося все з власної потреби забезпечити стабільне живлення
-квартири під час відключень.
-</p>
-<p>
-Ми тестували різні інвертори, типи акумуляторів, BMS та конфігурації.
-З часом цей досвід переріс у повноцінні рішення для клієнтів —
-без маркетингових обіцянок, тільки реальні цифри та чесні рекомендації.
-</p>
-<p>
-<strong>Чому нам довіряють:</strong><br>
-• ми збираємо батареї самі<br>
-• підбираємо обладнання під навантаження<br>
-• пояснюємо плюси і мінуси кожного рішення<br>
-• залишаємося на зв’язку після покупки
-</p>
-</section>
-
-<section id="delivery" style="display:none">
-<h2>Доставка та отримання</h2>
-<p>
-<strong>Самовивіз:</strong><br>
-Безкоштовний самовивіз з Печерського району м. Київ
-(за попередньою домовленістю).
-</p>
-<p>
-<strong>Доставка по Україні:</strong><br>
-Відправка Новою Поштою. Акумулятори пакуються у жорстку тару,
-кожна система проходить перевірку перед відправленням.
-</p>
-<p>
-<strong>Терміни:</strong><br>
-Відправка 1–2 робочі дні після замовлення.
-</p>
-<p>
-<strong>Гарантія:</strong><br>
-12 місяців на обладнання та збірку.
-</p>
-</section>
-
-<section id="contacts" style="display:none">
-<h2>Контакти</h2>
-<p>
-📞 Телефон: +38 (XXX) XXX-XX-XX<br>
-💬 Telegram: @Flat15<br>
-🕘 Пн–Сб: 10:00–18:00
-</p>
-</section>
-
-<section id="cart" class="cart-page">
-<div class="cart-box">
-<h2>Корзина</h2>
-<div id="cartItems"></div>
-<div class="cart-total" id="cartTotal"></div>
-<button class="checkout">Перейти до оплати (заглушка)</button>
-</div>
-</section>
-
+<section id="home"><h2>Популярні товари</h2><div class="grid" id="homeList"></div></section>
+<section id="inverters" style="display:none"><h2>Інвертори</h2><div class="grid" id="invList"></div></section>
+<section id="batteries" style="display:none"><h2>Акумулятори</h2><div class="grid" id="batList"></div></section>
+<section id="kits" style="display:none"><h2>Готові комплекти</h2><div class="grid" id="kitList"></div></section>
+<section id="about" style="display:none"><h2>Про нас</h2><p>Autonom Energy — практичний проєкт, створений з власного досвіду автономного живлення квартир та будинків під час відключень. Ми не продаємо те, що не тестували самі.</p><p>Кожне рішення — це баланс потужності, ресурсу батареї та безпеки. Ми підбираємо системи індивідуально та підтримуємо клієнтів після покупки.</p></section>
+<section id="delivery" style="display:none"><h2>Доставка</h2><p><strong>Самовивіз:</strong> безкоштовно з Печерського району Києва.</p><p><strong>Доставка:</strong> Нова Пошта по Україні, ретельне пакування, перевірка перед відправкою.</p><p><strong>Гарантія:</strong> 12 місяців.</p></section>
+<section id="contacts" style="display:none"><h2>Контакти</h2><p>📞 +38 (XXX) XXX-XX-XX<br>Telegram: @Flat15</p></section>
 </main>
-
-<div class="modal" id="modal">
-<div class="modal-box" id="modalBox"></div>
-</div>
-
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+<div class="cart-overlay" id="cartOverlay"><div class="cart-box"><span class="cart-close" onclick="closeCart()">✕</span><h2>Корзина</h2><div id="cartItems"></div><div class="cart-total" id="cartTotal"></div><button class="checkout">Перейти до оплати (заглушка)</button></div></div>
 <a class="float" href="https://t.me/Flat15">Консультація</a>
-
 <script>
 const products=[
-{
-id:10,type:'kit',name:'Комплект для будинку (MAX)',price:46000,
-spec:`Інвертор: PowMr 6.2 kW
-Акумулятор: LiFePO₄ 10 kWh
-Напруга системи: 48V
-Призначення: повна автономія будинку
-В комплекті: силові кабелі, налаштування`
-},
-{
-id:11,type:'kit',name:'Комплект для квартири (OPTIMAL)',price:30000,
-spec:`Інвертор: PowMr 4.2 kW
-Акумулятор: LiFePO₄ 5 kWh
-Напруга: 24/48V
-Тихий режим, компактність`
-},
-{
-id:12,type:'kit',name:'Комплект Економ',price:17000,
-spec:`Інвертор: PowMr 1.6 kW
-Акумулятор: LiFePO₄ 2.5 kWh
-Для базового резервного живлення`
-}
-];
-
+{id:1,type:'inverter',name:'PowMr 6.2 kW',price:18500,spec:'Потужність 6200W • 48V • чиста синусоїда • MPPT 120A • WiFi'},
+{id:2,type:'inverter',name:'PowMr 4.2 kW',price:13500,spec:'4200W • 24/48V • MPPT • тихий режим'},
+{id:3,type:'battery',name:'LiFePO₄ 10 kWh',price:28000,spec:'51.2V • 200Ah • ресурс 6000+ циклів • BMS'},
+{id:4,type:'battery',name:'LiFePO₄ 5 kWh',price:15500,spec:'51.2V • 100Ah • BMS • настінна'},
+{id:10,type:'kit',name:'Комплект для будинку (MAX)',price:46000,spec:'Інвертор 6.2kW + батарея 10kWh'},
+{id:11,type:'kit',name:'Комплект для квартири',price:30000,spec:'Інвертор 4.2kW + батарея 5kWh'},
+{id:12,type:'kit',name:'Комплект Економ',price:17000,spec:'1.6kW + 2.5kWh'}];
 let cart=[];
-
 function toggleMenu(){menu.classList.toggle('active')}
-function show(id){
-document.querySelectorAll('main section').forEach(s=>s.style.display='none');
-document.getElementById(id).style.display='block';
-menu.classList.remove('active');
-}
-
-function render(){
-homeList.innerHTML=kitList.innerHTML='';
-products.forEach(p=>{
-const card=`
-<div class="card" onclick="openProduct(${p.id})">
-<div class="img">Фото комплекту</div>
-<div class="card-body">
-<h3>${p.name}</h3>
-<div class="price">${p.price} грн</div>
-<button class="buy">Купити</button>
-</div></div>`;
-homeList.innerHTML+=card;
-if(p.type==='kit')kitList.innerHTML+=card;
-});
-}
-
-function openProduct(id){
-const p=products.find(x=>x.id===id);
-modalBox.innerHTML=`
-<div class="modal-head">
-<h3>${p.name}</h3>
-<span class="close" onclick="modal.classList.remove('active')">✕</span>
-</div>
-<div class="gallery"><div></div><div></div><div></div></div>
-<div class="detail">
-<h2>${p.name}</h2>
-<div class="price">${p.price} грн</div>
-<button class="buy" onclick="add(${p.id})">Додати в корзину</button>
-<h3>Опис та склад</h3>
-<pre>${p.spec}</pre>
-<h3>Доставка</h3>
-<p>Самовивіз з Печерська або Нова Пошта</p>
-</div>`;
-modal.classList.add('active');
-}
-
-function add(id){
-cart.push(id);
-cartCount.textContent=cart.length;
-modal.classList.remove('active');
-}
-
-function openCart(){
-show('cart');
-cartItems.innerHTML='';
-let total=0;
-cart.forEach((id,i)=>{
-const p=products.find(x=>x.id===id);
-total+=p.price;
-cartItems.innerHTML+=`
-<div class="cart-item">
-${p.name}
-<strong>${p.price} грн</strong>
-<button onclick="cart.splice(${i},1);openCart()">✕</button>
-</div>`;
-});
-cartTotal.textContent='Разом: '+total+' грн';
-}
-
+function show(id){document.querySelectorAll('main section').forEach(s=>s.style.display='none');document.getElementById(id).style.display='block';menu.classList.remove('active')}
+function render(){homeList.innerHTML=invList.innerHTML=batList.innerHTML=kitList.innerHTML='';products.forEach(p=>{const c=`<div class="card" onclick="openProduct(${p.id})"><div class="img">Фото</div><div class="card-body"><h3>${p.name}</h3><div class="price">${p.price} грн</div><button class="buy">Купити</button></div></div>`;homeList.innerHTML+=c;if(p.type==='inverter')invList.innerHTML+=c;if(p.type==='battery')batList.innerHTML+=c;if(p.type==='kit')kitList.innerHTML+=c})}
+function openProduct(id){const p=products.find(x=>x.id===id);modalBox.innerHTML=`<div class="modal-head"><h3>${p.name}</h3><span class="close" onclick="modal.classList.remove('active')">✕</span></div><div class="gallery"><div></div><div></div><div></div></div><div class="detail"><div class="price">${p.price} грн</div><button class="buy" onclick="add(${p.id})">Додати в корзину</button><pre>${p.spec}</pre></div>`;modal.classList.add('active')}
+function add(id){cart.push(id);cartCount.textContent=cart.length;modal.classList.remove('active')}
+function openCart(){cartOverlay.classList.add('active');cartItems.innerHTML='';let t=0;cart.forEach((id,i)=>{const p=products.find(x=>x.id===id);t+=p.price;cartItems.innerHTML+=`<div class="cart-item">${p.name}<strong>${p.price} грн</strong><button onclick="cart.splice(${i},1);openCart()">✕</button></div>`});cartTotal.textContent='Разом: '+t+' грн'}
+function closeCart(){cartOverlay.classList.remove('active')}
 render();
 </script>
-
 </body>
 </html>
