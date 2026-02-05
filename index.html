@@ -1,262 +1,161 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<title>Автономне живлення — Інвертори та LiFePO₄</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Преміальні рішення автономного живлення. Інвертори PowMr та LiFePO₄ батареї. Гарантія, підбір, оплата картою.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Енергосистеми | Інвертори та LiFePO₄</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background: #f5f5f5; color: #222; display: flex; }
 
-<style>
-:root{
-  --bg:#f6f7f8;
-  --card:#ffffff;
-  --accent:#3f3f46;
-  --soft:#71717a;
-  --border:#e4e4e7;
-  --cream:#faf9f7;
-}
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: #ffffff;
+      border-right: 1px solid #ddd;
+      height: 100vh;
+      padding: 24px;
+      position: fixed;
+      left: 0;
+      top: 0;
+    }
 
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:#18181b;
-}
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
 
-/* HEADER */
-header{
-  background:linear-gradient(180deg,#ffffff,#f3f4f6);
-  padding:70px 20px 90px;
-  text-align:center;
-}
-header h1{
-  font-size:36px;
-  margin-bottom:10px;
-}
-header p{
-  color:var(--soft);
-  font-size:18px;
-}
+    .menu a {
+      display: block;
+      text-decoration: none;
+      color: #333;
+      padding: 12px 0;
+      font-size: 16px;
+    }
 
-/* NAV */
-.catalog-nav{
-  background:#fff;
-  max-width:720px;
-  margin:-40px auto 40px;
-  padding:12px;
-  border-radius:18px;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.08);
-}
-.tab-btn{
-  flex:1;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:#fff;
-  font-weight:600;
-  cursor:pointer;
-  color:var(--soft);
-}
-.tab-btn.active{
-  background:var(--accent);
-  color:#fff;
-}
+    .menu a:hover { color: #000; font-weight: bold; }
 
-/* SECTIONS */
-section{
-  max-width:1200px;
-  margin:auto;
-  padding:40px 20px;
-}
-.tab-content{display:none}
-.tab-content.active{display:block}
+    /* MAIN */
+    .main {
+      margin-left: 260px;
+      padding: 40px;
+      width: 100%;
+    }
 
-/* GRID */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-.card{
-  background:var(--card);
-  border-radius:26px;
-  padding:28px;
-  border:1px solid var(--border);
-  box-shadow:0 25px 50px rgba(0,0,0,.05);
-  transition:.3s;
-}
-.card:hover{
-  transform:translateY(-4px);
-}
-.card h3{
-  margin:10px 0;
-}
-.card p{
-  color:var(--soft);
-}
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+    }
 
-/* BUTTONS */
-.btn{
-  display:inline-block;
-  padding:12px 22px;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:600;
-  margin-top:14px;
-}
-.btn-main{
-  background:var(--accent);
-  color:#fff;
-}
-.btn-outline{
-  border:1px solid var(--accent);
-  color:var(--accent);
-}
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
 
-/* TRUST */
-.trust{
-  background:var(--cream);
-  border-radius:30px;
-  padding:50px 20px;
-  margin-top:60px;
-}
-.trust-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-}
-.trust-item strong{
-  font-size:18px;
-}
+    .card:hover { transform: translateY(-4px); }
 
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(24,24,27,.6);
-  backdrop-filter:blur(6px);
-  z-index:999;
-}
-.modal-content{
-  background:#fff;
-  max-width:420px;
-  margin:10% auto;
-  border-radius:26px;
-  padding:35px;
-  position:relative;
-}
-.close{
-  position:absolute;
-  right:18px;
-  top:14px;
-  font-size:28px;
-  cursor:pointer;
-}
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #e0e0e0;
+      margin-bottom: 15px;
+    }
 
-/* FOOTER */
-footer{
-  background:#fff;
-  border-top:1px solid var(--border);
-  text-align:center;
-  padding:30px;
-  color:var(--soft);
-}
-</style>
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { font-size: 14px; margin-bottom: 6px; color: #555; }
+    .price { font-size: 18px; font-weight: bold; margin-top: 10px; }
+
+    /* CONTACT BUTTON */
+    .contact {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: #111;
+      color: #fff;
+      border-radius: 50px;
+      padding: 14px 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .contact:hover { background: #000; }
+
+    /* CONTACT POPUP */
+    .popup {
+      display: none;
+      position: fixed;
+      right: 24px;
+      bottom: 90px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      width: 260px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .popup h4 { margin-bottom: 10px; }
+    .popup a { display: block; margin-bottom: 8px; color: #000; text-decoration: none; }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Автономне живлення</h1>
-  <p>Преміальні рішення для дому та бізнесу</p>
-</header>
+  <aside class="sidebar">
+    <div class="logo">ЕНЕРГОСИСТЕМИ</div>
+    <nav class="menu">
+      <a href="#">Головна</a>
+      <a href="#">Інвертори</a>
+      <a href="#">Батареї LiFePO₄</a>
+      <a href="#">Про нас</a>
+      <a href="#">Доставка</a>
+      <a href="#">Контакти</a>
+    </nav>
+  </aside>
 
-<div class="catalog-nav">
-  <button class="tab-btn active" onclick="openTab(event,'kits')">Комплекти</button>
-  <button class="tab-btn" onclick="openTab(event,'inverters')">Інвертори</button>
-  <button class="tab-btn" onclick="openTab(event,'batteries')">Батареї</button>
-</div>
+  <main class="main">
+    <h1 style="margin-bottom:30px">Каталог</h1>
+    <div class="catalog">
 
-<section id="kits" class="tab-content active">
-<h2>Готові комплекти</h2>
-<div class="cards">
-  <div class="card">
-    <h3>4.2 кВт + 5 кВт·год</h3>
-    <p>Квартира / офіс</p>
-    <button class="btn btn-outline" onclick="openModal('kit42')">Характеристики</button>
-    <button class="btn btn-main" onclick="openModal('pay')">Купити</button>
+      <div class="card" onclick="location.href='product.html'">
+        <img alt="інвертор" />
+        <h3>Інвертор 5 кВт</h3>
+        <p>Чиста синусоїда</p>
+        <p>48V</p>
+        <div class="price">16 000 ₴</div>
+      </div>
+
+      <div class="card" onclick="location.href='product.html'">
+        <img alt="батарея" />
+        <h3>LiFePO₄ 5 кВт·год</h3>
+        <p>16S • BMS</p>
+        <p>Для інверторів</p>
+        <div class="price">17 000 ₴</div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="contact" onclick="togglePopup()">Консультація</div>
+
+  <div class="popup" id="popup">
+    <h4>Звʼязатися з нами</h4>
+    <a href="tel:+380000000000">📞 +38 000 000 00 00</a>
+    <a href="https://t.me/username" target="_blank">💬 Telegram</a>
   </div>
-  <div class="card">
-    <h3>6.2 кВт + 10 кВт·год</h3>
-    <p>Будинок / бізнес</p>
-    <button class="btn btn-outline" onclick="openModal('kit62')">Характеристики</button>
-    <button class="btn btn-main" onclick="openModal('pay')">Купити</button>
-  </div>
-</div>
-</section>
 
-<section id="inverters" class="tab-content">
-<h2>Інвертори</h2>
-<div class="cards">
-  <div class="card">
-    <h3>PowMr 4.2 кВт</h3>
-    <p>24В • Чиста синусоїда</p>
-    <button class="btn btn-outline" onclick="openModal('inv42')">Характеристики</button>
-    <button class="btn btn-main" onclick="openModal('pay')">Купити</button>
-  </div>
-</div>
-</section>
-
-<section id="batteries" class="tab-content">
-<h2>LiFePO₄ батареї</h2>
-<div class="cards">
-  <div class="card">
-    <h3>5 кВт·год</h3>
-    <p>6000+ циклів</p>
-    <button class="btn btn-outline" onclick="openModal('bat5')">Характеристики</button>
-    <button class="btn btn-main" onclick="openModal('pay')">Купити</button>
-  </div>
-</div>
-</section>
-
-<section class="trust">
-<h2>Чому нам довіряють</h2>
-<div class="trust-grid">
-  <div class="trust-item"><strong>🔋 Перевірені осередки</strong><p>Тільки Grade A</p></div>
-  <div class="trust-item"><strong>🛠 Збірка під ключ</strong><p>Все налаштовано</p></div>
-  <div class="trust-item"><strong>💳 Оплата картою</strong><p>Онлайн без ризиків</p></div>
-  <div class="trust-item"><strong>📞 Підтримка</strong><p>Жива консультація</p></div>
-</div>
-</section>
-
-<!-- PAY MODAL -->
-<div id="pay" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('pay')">&times;</span>
-    <h3>Оплата</h3>
-    <p>Онлайн оплата картою (LiqPay / WayForPay)</p>
-    <p>Поки що — напишіть нам для оформлення</p>
-    <a class="btn btn-main" href="https://t.me/Flat15">Перейти в Telegram</a>
-  </div>
-</div>
-
-<footer>© 2026 Автономне живлення • Україна</footer>
-
-<script>
-function openTab(e,id){
-  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  e.currentTarget.classList.add('active');
-}
-function openModal(id){document.getElementById(id).style.display='block'}
-function closeModal(id){document.getElementById(id).style.display='none'}
-window.onclick=e=>{if(e.target.className==='modal')e.target.style.display='none'}
-</script>
+  <script>
+    function togglePopup() {
+      const p = document.getElementById('popup');
+      p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 
 </body>
 </html>
