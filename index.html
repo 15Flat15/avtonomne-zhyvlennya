@@ -2,284 +2,151 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Енергосистеми</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Shop</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
- background:#f4f5f7;
- color:#111;
-}
-
-/* HEADER */
-header{
- position:sticky;
- top:0;
- z-index:10;
- background:#fff;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:14px 16px;
- border-bottom:1px solid #ddd;
-}
-.burger{font-size:24px;cursor:pointer}
-.logo{font-weight:700;font-size:18px}
-.cart{font-size:22px;cursor:pointer}
-
-/* MENU */
-.menu{
- position:fixed;
- top:0;left:-100%;
- width:75%;
- max-width:300px;
- height:100%;
- background:#fff;
- z-index:20;
- padding:20px;
- transition:.3s;
-}
+body{margin:0;font-family:system-ui,Arial;background:#f4f6f8;color:#111}
+header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:14px}
+.burger,.cart-btn{font-size:24px;cursor:pointer}
+.logo{font-weight:800}
+.menu{position:fixed;top:0;left:-100%;width:280px;height:100%;background:#fff;z-index:100;padding:20px;transition:.3s}
 .menu.active{left:0}
-.menu a{
- display:block;
- padding:12px 0;
- border-bottom:1px solid #eee;
- text-decoration:none;
- color:#111;
- font-weight:500;
-}
-.overlay{
- display:none;
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.4);
- z-index:15;
-}
+.menu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#111;font-weight:600}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
 .overlay.active{display:block}
-
-/* SECTIONS */
 .section{display:none;padding:16px}
 .section.active{display:block}
-
-/* CATALOG */
-.catalog{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:14px;
-}
-.card{
- background:#fff;
- border-radius:14px;
- padding:10px;
- box-shadow:0 4px 10px rgba(0,0,0,.08);
- cursor:pointer;
-}
-.card img{width:100%;border-radius:10px}
-.card h4{font-size:14px;margin:8px 0 4px}
-.price{font-weight:700}
-
-/* MODAL */
-.modal{
- display:none;
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.6);
- z-index:30;
- overflow:auto;
-}
-.modal-content{
- background:#fff;
- margin:20px auto;
- width:95%;
- max-width:500px;
- border-radius:18px;
- padding:16px;
-}
-.modal img{width:100%;border-radius:14px}
-.close{text-align:right;font-size:26px;cursor:pointer}
-
-/* TABS */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);cursor:pointer}
+.card img{width:100%;border-radius:12px}
+.card h4{margin:8px 0 4px;font-size:14px}
+.price{font-weight:800}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;overflow:auto}
+.modal-content{background:#fff;margin:20px auto;max-width:500px;border-radius:20px;padding:16px}
+.close{font-size:26px;text-align:right;cursor:pointer}
 .tabs{display:flex;gap:8px;margin-top:12px}
-.tab{
- flex:1;
- text-align:center;
- padding:8px;
- border-radius:8px;
- background:#eee;
- font-size:14px;
- cursor:pointer;
-}
+.tab{flex:1;text-align:center;padding:10px;border-radius:10px;background:#eee;font-weight:600;cursor:pointer}
 .tab.active{background:#111;color:#fff}
 .tab-content{display:none;margin-top:10px;font-size:14px}
 .tab-content.active{display:block}
-
-/* BUTTONS */
-button{
- width:100%;
- padding:14px;
- margin-top:12px;
- border:none;
- border-radius:12px;
- background:#111;
- color:#fff;
- font-size:16px;
-}
-
-/* CART */
-.cart-item{
- background:#fff;
- padding:12px;
- border-radius:12px;
- margin-bottom:10px;
- display:flex;
- justify-content:space-between;
-}
-
-/* FLOAT CONTACT */
-.contact{
- position:fixed;
- right:16px;
- bottom:20px;
- background:#111;
- color:#fff;
- padding:14px 18px;
- border-radius:999px;
- box-shadow:0 6px 16px rgba(0,0,0,.25);
- z-index:10;
-}
+button{width:100%;padding:14px;border:none;border-radius:14px;background:#111;color:#fff;font-size:16px;margin-top:12px}
+.cart-item{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between}
+.cart-header{display:flex;justify-content:space-between;align-items:center}
+.floating{position:fixed;right:16px;bottom:20px;background:#111;color:#fff;padding:14px 18px;border-radius:999px;z-index:60}
 </style>
 </head>
-
 <body>
-
 <header>
  <div class="burger" onclick="openMenu()">☰</div>
- <div class="logo">Енергосистеми</div>
- <div class="cart" onclick="show('cart')">🛒</div>
+ <div class="logo">Energy Shop</div>
+ <div class="cart-btn" onclick="showSection('cart')">🛒</div>
 </header>
 
 <div class="menu" id="menu">
- <a onclick="nav('home')">Головна</a>
- <a onclick="nav('about')">Про нас</a>
- <a onclick="nav('delivery')">Доставка</a>
- <a onclick="nav('payment')">Оплата</a>
- <a onclick="nav('contacts')">Контакти</a>
+ <a onclick="navigate('home')">Головна</a>
+ <a onclick="navigate('inverters')">Інвертори</a>
+ <a onclick="navigate('batteries')">Батареї</a>
+ <a onclick="navigate('about')">Про нас</a>
+ <a onclick="navigate('delivery')">Доставка</a>
+ <a onclick="navigate('contacts')">Контакти</a>
 </div>
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- HOME -->
-<div class="section active" id="home">
- <div class="catalog" id="catalog"></div>
-</div>
+<section class="section active" id="home">
+ <h2>Популярні комплекти</h2>
+ <div class="grid" id="homeGrid"></div>
+</section>
 
-<!-- ABOUT -->
-<div class="section" id="about">
+<section class="section" id="inverters">
+ <h2>Інвертори PowMR</h2>
+ <div class="grid" id="invGrid"></div>
+</section>
+
+<section class="section" id="batteries">
+ <h2>LiFePO4 батареї</h2>
+ <div class="grid" id="batGrid"></div>
+</section>
+
+<section class="section" id="about">
  <h2>Про нас</h2>
- <p>Ми — команда, що займається автономними енергосистемами для дому та бізнесу з 2019 року.</p>
-</div>
+ <p>Ми спеціалізуємось на автономних енергосистемах для дому та бізнесу.</p>
+ <h3>Чому нам довіряють</h3>
+ <ul>
+  <li>Понад 5 років досвіду</li>
+  <li>Реальні гарантії</li>
+  <li>Техпідтримка після покупки</li>
+ </ul>
+</section>
 
-<!-- DELIVERY -->
-<div class="section" id="delivery">
+<section class="section" id="delivery">
  <h2>Доставка</h2>
- <p>Нова Пошта • 1–2 дні • Оплата при отриманні</p>
-</div>
+ <p>Нова Пошта по Україні 1–2 дні.</p>
+ <p>Самовивіз за домовленістю.</p>
+ <p>Упаковка та страхування включені.</p>
+</section>
 
-<!-- PAYMENT -->
-<div class="section" id="payment">
- <h2>Оплата</h2>
- <p>Готівка • Переказ • Безготівково</p>
-</div>
-
-<!-- CONTACTS -->
-<div class="section" id="contacts">
+<section class="section" id="contacts">
  <h2>Контакти</h2>
  <p>📞 +38 (0XX) XXX-XX-XX</p>
- <p>💬 Telegram: @energy_shop</p>
-</div>
+ <p>💬 Telegram: @energyshop</p>
+</section>
 
-<!-- CART -->
-<div class="section" id="cart">
- <h2>Корзина</h2>
+<section class="section" id="cart">
+ <div class="cart-header">
+  <h2>Корзина</h2>
+  <div class="close" onclick="showSection('home')">✕</div>
+ </div>
  <div id="cartItems"></div>
  <h3 id="total"></h3>
  <button>Оплатити (заглушка)</button>
-</div>
+</section>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
  <div class="modal-content">
-  <div class="close" onclick="modal.style.display='none'">×</div>
-  <img id="mImg">
+  <div class="close" onclick="modal.style.display='none'">✕</div>
+  <img id="mImg" style="width:100%;border-radius:14px">
   <h3 id="mTitle"></h3>
-  <p id="mPrice"></p>
+  <div class="price" id="mPrice"></div>
   <div class="tabs">
-   <div class="tab active" onclick="tab('desc')">Опис</div>
-   <div class="tab" onclick="tab('chars')">Характеристики</div>
+   <div class="tab active" onclick="switchTab('desc')">Опис</div>
+   <div class="tab" onclick="switchTab('chars')">Характеристики</div>
+   <div class="tab" onclick="switchTab('ship')">Доставка</div>
   </div>
   <div id="desc" class="tab-content active"></div>
   <div id="chars" class="tab-content"></div>
-  <button onclick="addToCart()">Додати в кошик</button>
+  <div id="ship" class="tab-content">Відправка Новою Поштою протягом 24 годин</div>
+  <button onclick="addToCart()">Додати в корзину</button>
  </div>
 </div>
 
-<div class="contact">Звʼязатися</div>
+<div class="floating">Звʼязатися</div>
 
 <script>
-const products=[
-{title:"Інвертор 5кВт",price:16000,img:"https://via.placeholder.com/600",desc:"Надійний інвертор",chars:["5кВт","48V","Чистий синус"]},
-{title:"Батарея 5кВт·год",price:17000,img:"https://via.placeholder.com/600",desc:"LiFePO4 батарея",chars:["6000 циклів","BMS","48V"]}
-];
-
-let currentProduct=null;
-let cart=[];
-
-const catalog=document.getElementById("catalog");
-products.forEach(p=>{
- const d=document.createElement("div");
- d.className="card";
- d.innerHTML=`<img src="${p.img}"><h4>${p.title}</h4><div class="price">${p.price} ₴</div>`;
- d.onclick=()=>openModal(p);
- catalog.appendChild(d);
-});
-
-function openModal(p){
- currentProduct=p;
- mImg.src=p.img;
- mTitle.innerText=p.title;
- mPrice.innerText=p.price+" ₴";
- desc.innerText=p.desc;
- chars.innerHTML=p.chars.join("<br>");
- modal.style.display="block";
-}
-
-function addToCart(){
- cart.push(currentProduct);
- modal.style.display="none";
-}
-
-function show(id){
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- if(id==="cart")renderCart();
-}
-
-function renderCart(){
- cartItems.innerHTML="";
- let sum=0;
- cart.forEach(p=>{
-  sum+=p.price;
-  cartItems.innerHTML+=`<div class="cart-item"><span>${p.title}</span><span>${p.price} ₴</span></div>`;
- });
- total.innerText="Разом: "+sum+" ₴";
-}
-
-function nav(id){show(id);closeMenu()}
-function openMenu(){menu.classList.add("active");overlay.classList.add("active")}
-function closeMenu(){menu.classList.remove("active");overlay.classList.remove("active")}
+const products={
+ inverters:[
+  {title:'PowMR 6.2 kW',price:32000,img:'https://via.placeholder.com/600',desc:'Потужний інвертор для дому',chars:['6.2 kW','48V','MPPT']},
+  {title:'PowMR 4.2 kW',price:26000,img:'https://via.placeholder.com/600',desc:'Оптимальний варіант',chars:['4.2 kW','48V','MPPT']},
+  {title:'PowMR 1.6 kW',price:16000,img:'https://via.placeholder.com/600',desc:'Для малого споживання',chars:['1.6 kW','24V','MPPT']}
+ ],
+ batteries:[
+  {title:'Батарея 2.5 kW',price:18000,img:'https://via.placeholder.com/600',desc:'Компактна батарея',chars:['LiFePO4','2.5 kW','BMS']},
+  {title:'Батарея 5 kW',price:32000,img:'https://via.placeholder.com/600',desc:'Золота середина',chars:['LiFePO4','5 kW','BMS']},
+  {title:'Батарея 10 kW',price:60000,img:'https://via.placeholder.com/600',desc:'Максимальна автономність',chars:['LiFePO4','10 kW','BMS']}
+ ]
+};
+let cart=[];let current=null;
+function render(){renderGrid('invGrid',products.inverters);renderGrid('batGrid',products.batteries);}
+function renderGrid(id,arr){const g=document.getElementById(id);g.innerHTML='';arr.forEach(p=>{const c=document.createElement('div');c.className='card';c.innerHTML=`<img src="${p.img}"><h4>${p.title}</h4><div class='price'>${p.price} ₴</div>`;c.onclick=()=>openModal(p);g.appendChild(c);});}
+function openModal(p){current=p;mImg.src=p.img;mTitle.innerText=p.title;mPrice.innerText=p.price+' ₴';desc.innerText=p.desc;chars.innerHTML=p.chars.join('<br>');modal.style.display='block';switchTab('desc');}
+function switchTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');document.getElementById(id).classList.add('active');}
+function addToCart(){cart.push(current);modal.style.display='none';}
+function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='cart')renderCart();}
+function renderCart(){cartItems.innerHTML='';let sum=0;cart.forEach(p=>{sum+=p.price;cartItems.innerHTML+=`<div class='cart-item'><span>${p.title}</span><span>${p.price} ₴</span></div>`});total.innerText='Разом: '+sum+' ₴';}
+function navigate(id){showSection(id);closeMenu();}
+function openMenu(){menu.classList.add('active');overlay.classList.add('active');}
+function closeMenu(){menu.classList.remove('active');overlay.classList.remove('active');}
+render();
 </script>
-
 </body>
 </html>
