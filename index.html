@@ -8,7 +8,7 @@
 <style>
 :root{
 --bg:#f4f6f8;
---white:#fff;
+--white:#ffffff;
 --dark:#0f172a;
 --muted:#64748b;
 --accent:#1e293b;
@@ -43,15 +43,20 @@ background:#b91c1c;color:#fff;
 font-size:11px;padding:2px 6px;border-radius:999px
 }
 
-/* MENU */
+/* SIDE MENU */
 .side{
 position:fixed;top:0;left:-100%;
 width:300px;height:100%;
 background:#fff;z-index:100;
-padding:30px;transition:.35s;
-box-shadow:8px 0 30px rgba(0,0,0,.12)
+padding:24px;
+transition:.35s;
+box-shadow:8px 0 30px rgba(0,0,0,.15)
 }
 .side.active{left:0}
+.side-header{
+display:flex;justify-content:space-between;align-items:center;
+margin-bottom:30px
+}
 .side a{
 display:block;padding:14px 0;
 border-bottom:1px solid var(--border);
@@ -98,7 +103,7 @@ cursor:pointer;width:100%
 /* MODAL PRODUCT */
 .modal{
 position:fixed;inset:0;
-background:rgba(15,23,42,.8);
+background:rgba(15,23,42,.85);
 display:none;z-index:200
 }
 .modal.active{display:block}
@@ -125,7 +130,7 @@ display:flex;gap:12px;
 padding:20px
 }
 .gallery div{
-flex:1;height:200px;
+flex:1;height:220px;
 background:linear-gradient(135deg,#e5e7eb,#f8fafc);
 border-radius:16px
 }
@@ -159,13 +164,17 @@ font-weight:600
 
 <header>
 <div class="header">
-<div class="burger" onclick="menu.classList.toggle('active')">☰</div>
+<div class="burger" onclick="toggleMenu()">☰</div>
 <div class="logo">AUTONOM ENERGY</div>
 <div class="cart-btn" onclick="openCart()">🛒 <span id="cartCount" class="cart-count">0</span></div>
 </div>
 </header>
 
 <nav class="side" id="menu">
+<div class="side-header">
+<strong>Меню</strong>
+<span class="close" onclick="toggleMenu()">✕</span>
+</div>
 <a onclick="show('home')">Головна</a>
 <a onclick="show('inverters')">Інвертори</a>
 <a onclick="show('batteries')">Батареї</a>
@@ -178,57 +187,62 @@ font-weight:600
 <main>
 
 <section id="home">
-<h2>Популярні товари</h2>
+<h2>Популярні рішення</h2>
 <div class="grid" id="homeList"></div>
 </section>
 
 <section id="inverters" style="display:none">
 <h2>Інвертори PowMr</h2>
-<p>Гібридні інвертори для дому та бізнесу.</p>
+<p>Гібридні інвертори для автономного та резервного живлення.</p>
 <div class="grid" id="invList"></div>
 </section>
 
 <section id="batteries" style="display:none">
 <h2>LiFePO₄ батареї</h2>
-<p>Акумулятори з ресурсом понад 6000 циклів.</p>
+<p>Власна збірка з BMS та комірок класу A.</p>
 <div class="grid" id="batList"></div>
 </section>
 
 <section id="kits" style="display:none">
 <h2>Готові комплекти</h2>
-<p>Інвертор + батарея + кабелі.</p>
+<p><strong>Економ</strong> — квартира • <strong>Для будинку</strong> • <strong>Максимум автономності</strong></p>
 <div class="grid" id="kitList"></div>
 </section>
 
 <section id="about" style="display:none">
 <h2>Про нас</h2>
 <p>
-Autonom Energy виникла як інженерний проєкт у відповідь на нестабільне
-електропостачання. Ми почали з власних систем резервного живлення,
-які з часом переросли у повноцінні рішення для клієнтів.
+Autonom Energy — це інженерний проєкт, який почався з власних систем
+резервного живлення для дому. Ми не перепродаємо готові рішення —
+ми тестуємо, збираємо та налаштовуємо системи під реальні умови.
 </p>
 <p>
 <strong>Чому нам довіряють:</strong><br>
-• технічний підхід<br>
-• реальні характеристики<br>
-• підтримка після продажу
+• реальні характеристики без маркетингу<br>
+• правильний підбір під навантаження<br>
+• підтримка після продажу<br>
+• досвід реальної експлуатації
 </p>
 </section>
 
 <section id="delivery" style="display:none">
-<h2>Доставка</h2>
+<h2>Доставка та гарантія</h2>
 <p>
-Відправляємо по всій Україні Новою Поштою.
-Самовивіз можливий за домовленістю.
-</p>
-<p>
-Кожна батарея проходить перевірку перед відправленням.
+• Самовивіз за домовленістю<br>
+• Нова Пошта по Україні<br>
+• Надійне пакування батарей<br>
+• Гарантія 12 місяців<br>
+• Перед відправкою — тестування
 </p>
 </section>
 
 <section id="contacts" style="display:none">
 <h2>Контакти</h2>
-<p>Telegram: @Flat15</p>
+<p>
+📞 Телефон: +38 (XXX) XXX-XX-XX<br>
+💬 Telegram: @Flat15<br>
+🕘 Пн–Сб: 10:00–18:00
+</p>
 </section>
 
 <section id="cart" class="cart-page">
@@ -250,22 +264,54 @@ Autonom Energy виникла як інженерний проєкт у відп
 
 <script>
 const products=[
-{id:1,type:'inverter',name:'PowMr 6.2 kW',price:16000,
-spec:'48V, MPPT 120A, PV 6500W, WiFi, чиста синусоїда'},
-{id:2,type:'inverter',name:'PowMr 4.2 kW',price:13000,
-spec:'24V, MPPT 100A, PV 5000W'},
-{id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,
-spec:'12V, компактний'},
-{id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,
-spec:'24V, BMS 100A'},
-{id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,
-spec:'48V, BMS 150A'},
-{id:6,type:'battery',name:'LiFePO₄ 10 kWh',price:30000,
-spec:'48V, BMS 200A'}
+{
+id:1,type:'inverter',name:'PowMr 6.2 kW',price:16000,
+spec:`Номінальна потужність: 6200W
+Вхідна напруга АКБ: 48V
+MPPT контролер: 120A
+Макс. PV потужність: 6500W
+ККД: до 93%
+Вихід: чиста синусоїда
+Захисти: КЗ, перевантаження, перегрів
+WiFi моніторинг`
+},
+{
+id:2,type:'inverter',name:'PowMr 4.2 kW',price:13000,
+spec:`Номінальна потужність: 4200W
+Вхід АКБ: 24V
+MPPT: 100A
+PV: до 5000W
+ККД: 92%
+Захисти повні`
+},
+{
+id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,
+spec:`Потужність: 1600W
+Вхід: 12V
+Для невеликих систем
+Чиста синусоїда`
+},
+{
+id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,
+spec:`Ємність: 2.56 kWh
+Напруга: 24V
+BMS: 100A
+Цикли: 6000+
+Температурний захист`
+},
+{
+id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,
+spec:`Ємність: 5.12 kWh
+Напруга: 48V
+BMS: 150A
+Цикли: 6000+
+Балансування`
+}
 ];
 
 let cart=[];
 
+function toggleMenu(){menu.classList.toggle('active')}
 function show(id){
 document.querySelectorAll('main section').forEach(s=>s.style.display='none');
 document.getElementById(id).style.display='block';
@@ -282,8 +328,7 @@ const card=`
 <h3>${p.name}</h3>
 <div class="price">${p.price} грн</div>
 <button class="buy">Купити</button>
-</div>
-</div>`;
+</div></div>`;
 homeList.innerHTML+=card;
 if(p.type==='inverter')invList.innerHTML+=card;
 if(p.type==='battery')batList.innerHTML+=card;
@@ -297,15 +342,13 @@ modalBox.innerHTML=`
 <h3>${p.name}</h3>
 <span class="close" onclick="modal.classList.remove('active')">✕</span>
 </div>
-<div class="gallery">
-<div></div><div></div><div></div>
-</div>
+<div class="gallery"><div></div><div></div><div></div></div>
 <div class="detail">
 <h2>${p.name}</h2>
 <div class="price">${p.price} грн</div>
 <button class="buy" onclick="add(${p.id})">Додати в корзину</button>
 <h3>Характеристики</h3>
-<p>${p.spec}</p>
+<pre>${p.spec}</pre>
 <h3>Доставка</h3>
 <p>Самовивіз або Нова Пошта</p>
 </div>`;
