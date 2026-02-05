@@ -28,9 +28,9 @@ header{
 }
 .burger{font-size:24px;cursor:pointer}
 .logo{font-weight:700;font-size:18px}
-.cart{font-size:22px}
+.cart{font-size:22px;cursor:pointer}
 
-/* SIDE MENU */
+/* MENU */
 .menu{
  position:fixed;
  top:0;left:-100%;
@@ -43,13 +43,12 @@ header{
  transition:.3s;
 }
 .menu.active{left:0}
-.menu h3{margin-top:0}
 .menu a{
  display:block;
  padding:12px 0;
  border-bottom:1px solid #eee;
- color:#111;
  text-decoration:none;
+ color:#111;
  font-weight:500;
 }
 .overlay{
@@ -61,9 +60,12 @@ header{
 }
 .overlay.active{display:block}
 
+/* SECTIONS */
+.section{display:none;padding:16px}
+.section.active{display:block}
+
 /* CATALOG */
 .catalog{
- padding:16px;
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:14px;
@@ -75,32 +77,9 @@ header{
  box-shadow:0 4px 10px rgba(0,0,0,.08);
  cursor:pointer;
 }
-.card img{
- width:100%;
- border-radius:10px;
-}
-.card h4{
- font-size:14px;
- margin:8px 0 4px;
-}
-.price{
- font-weight:700;
-}
-
-/* FLOAT BUTTON */
-.contact-btn{
- position:fixed;
- right:16px;
- bottom:20px;
- background:#25d366;
- color:#fff;
- padding:14px 18px;
- border-radius:999px;
- font-weight:600;
- box-shadow:0 6px 16px rgba(0,0,0,.25);
- z-index:10;
- text-decoration:none;
-}
+.card img{width:100%;border-radius:10px}
+.card h4{font-size:14px;margin:8px 0 4px}
+.price{font-weight:700}
 
 /* MODAL */
 .modal{
@@ -119,22 +98,11 @@ header{
  border-radius:18px;
  padding:16px;
 }
-.modal img{
- width:100%;
- border-radius:14px;
-}
-.close{
- font-size:26px;
- text-align:right;
- cursor:pointer;
-}
+.modal img{width:100%;border-radius:14px}
+.close{text-align:right;font-size:26px;cursor:pointer}
 
 /* TABS */
-.tabs{
- display:flex;
- gap:8px;
- margin-top:12px;
-}
+.tabs{display:flex;gap:8px;margin-top:12px}
 .tab{
  flex:1;
  text-align:center;
@@ -144,26 +112,43 @@ header{
  font-size:14px;
  cursor:pointer;
 }
-.tab.active{
- background:#111;
- color:#fff;
-}
-.tab-content{
- display:none;
- margin-top:10px;
- font-size:14px;
-}
+.tab.active{background:#111;color:#fff}
+.tab-content{display:none;margin-top:10px;font-size:14px}
 .tab-content.active{display:block}
 
-.buy-btn{
- margin-top:14px;
+/* BUTTONS */
+button{
  width:100%;
  padding:14px;
- background:#111;
- color:#fff;
+ margin-top:12px;
  border:none;
  border-radius:12px;
+ background:#111;
+ color:#fff;
  font-size:16px;
+}
+
+/* CART */
+.cart-item{
+ background:#fff;
+ padding:12px;
+ border-radius:12px;
+ margin-bottom:10px;
+ display:flex;
+ justify-content:space-between;
+}
+
+/* FLOAT CONTACT */
+.contact{
+ position:fixed;
+ right:16px;
+ bottom:20px;
+ background:#111;
+ color:#fff;
+ padding:14px 18px;
+ border-radius:999px;
+ box-shadow:0 6px 16px rgba(0,0,0,.25);
+ z-index:10;
 }
 </style>
 </head>
@@ -173,116 +158,127 @@ header{
 <header>
  <div class="burger" onclick="openMenu()">☰</div>
  <div class="logo">Енергосистеми</div>
- <div class="cart">🛒</div>
+ <div class="cart" onclick="show('cart')">🛒</div>
 </header>
 
 <div class="menu" id="menu">
- <h3>Меню</h3>
- <a href="#">Про нас</a>
- <a href="#">Доставка</a>
- <a href="#">Оплата</a>
- <a href="#">Комплекти</a>
- <a href="#">Інвертори</a>
- <a href="#">Батареї</a>
+ <a onclick="nav('home')">Головна</a>
+ <a onclick="nav('about')">Про нас</a>
+ <a onclick="nav('delivery')">Доставка</a>
+ <a onclick="nav('payment')">Оплата</a>
+ <a onclick="nav('contacts')">Контакти</a>
 </div>
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<div class="catalog" id="catalog"></div>
+<!-- HOME -->
+<div class="section active" id="home">
+ <div class="catalog" id="catalog"></div>
+</div>
 
-<a class="contact-btn" href="#">Звʼязатися</a>
+<!-- ABOUT -->
+<div class="section" id="about">
+ <h2>Про нас</h2>
+ <p>Ми — команда, що займається автономними енергосистемами для дому та бізнесу з 2019 року.</p>
+</div>
+
+<!-- DELIVERY -->
+<div class="section" id="delivery">
+ <h2>Доставка</h2>
+ <p>Нова Пошта • 1–2 дні • Оплата при отриманні</p>
+</div>
+
+<!-- PAYMENT -->
+<div class="section" id="payment">
+ <h2>Оплата</h2>
+ <p>Готівка • Переказ • Безготівково</p>
+</div>
+
+<!-- CONTACTS -->
+<div class="section" id="contacts">
+ <h2>Контакти</h2>
+ <p>📞 +38 (0XX) XXX-XX-XX</p>
+ <p>💬 Telegram: @energy_shop</p>
+</div>
+
+<!-- CART -->
+<div class="section" id="cart">
+ <h2>Корзина</h2>
+ <div id="cartItems"></div>
+ <h3 id="total"></h3>
+ <button>Оплатити (заглушка)</button>
+</div>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
  <div class="modal-content">
-  <div class="close" onclick="closeModal()">×</div>
+  <div class="close" onclick="modal.style.display='none'">×</div>
   <img id="mImg">
   <h3 id="mTitle"></h3>
-  <p class="price" id="mPrice"></p>
-
+  <p id="mPrice"></p>
   <div class="tabs">
    <div class="tab active" onclick="tab('desc')">Опис</div>
    <div class="tab" onclick="tab('chars')">Характеристики</div>
-   <div class="tab" onclick="tab('delivery')">Доставка</div>
   </div>
-
   <div id="desc" class="tab-content active"></div>
   <div id="chars" class="tab-content"></div>
-  <div id="delivery" class="tab-content">
-   Нова Пошта • 1–2 дні<br>Оплата при отриманні
-  </div>
-
-  <button class="buy-btn">Додати в кошик</button>
+  <button onclick="addToCart()">Додати в кошик</button>
  </div>
 </div>
 
+<div class="contact">Звʼязатися</div>
+
 <script>
 const products=[
-{
- title:"Інвертор 5кВт 48V",
- price:"16 000 ₴",
- img:"https://via.placeholder.com/600x400",
- desc:"Надійний інвертор для дому та бізнесу.",
- chars:[
-  "Потужність: 5 кВт",
-  "48V",
-  "Чистий синус",
-  "LiFePO4"
- ]
-},
-{
- title:"Батарея LiFePO4 5кВт·год",
- price:"17 000 ₴",
- img:"https://via.placeholder.com/600x400",
- desc:"Довговічна батарея з BMS.",
- chars:[
-  "5 кВт·год",
-  "6000 циклів",
-  "48V",
-  "Захист BMS"
- ]
-}
+{title:"Інвертор 5кВт",price:16000,img:"https://via.placeholder.com/600",desc:"Надійний інвертор",chars:["5кВт","48V","Чистий синус"]},
+{title:"Батарея 5кВт·год",price:17000,img:"https://via.placeholder.com/600",desc:"LiFePO4 батарея",chars:["6000 циклів","BMS","48V"]}
 ];
 
-const catalog=document.getElementById("catalog");
+let currentProduct=null;
+let cart=[];
 
+const catalog=document.getElementById("catalog");
 products.forEach(p=>{
  const d=document.createElement("div");
  d.className="card";
- d.innerHTML=`
-  <img src="${p.img}">
-  <h4>${p.title}</h4>
-  <div class="price">${p.price}</div>
- `;
+ d.innerHTML=`<img src="${p.img}"><h4>${p.title}</h4><div class="price">${p.price} ₴</div>`;
  d.onclick=()=>openModal(p);
  catalog.appendChild(d);
 });
 
 function openModal(p){
+ currentProduct=p;
  mImg.src=p.img;
  mTitle.innerText=p.title;
- mPrice.innerText=p.price;
+ mPrice.innerText=p.price+" ₴";
  desc.innerText=p.desc;
- chars.innerHTML=p.chars.map(c=>`• ${c}<br>`).join("");
+ chars.innerHTML=p.chars.join("<br>");
  modal.style.display="block";
 }
 
-function closeModal(){modal.style.display="none"}
+function addToCart(){
+ cart.push(currentProduct);
+ modal.style.display="none";
+}
 
-function tab(id){
- document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
- document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
- event.target.classList.add("active");
+function show(id){
+ document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
  document.getElementById(id).classList.add("active");
+ if(id==="cart")renderCart();
 }
 
-function openMenu(){
- menu.classList.add("active");
- overlay.classList.add("active");
+function renderCart(){
+ cartItems.innerHTML="";
+ let sum=0;
+ cart.forEach(p=>{
+  sum+=p.price;
+  cartItems.innerHTML+=`<div class="cart-item"><span>${p.title}</span><span>${p.price} ₴</span></div>`;
+ });
+ total.innerText="Разом: "+sum+" ₴";
 }
-function closeMenu(){
- menu.classList.remove("active");
- overlay.classList.remove("active");
-}
+
+function nav(id){show(id);closeMenu()}
+function openMenu(){menu.classList.add("active");overlay.classList.add("active")}
+function closeMenu(){menu.classList.remove("active");overlay.classList.remove("active")}
 </script>
 
 </body>
