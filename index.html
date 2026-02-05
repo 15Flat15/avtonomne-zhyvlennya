@@ -3,366 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autonom Energy — Інвертори та LiFePO₄</title>
+<title>Autonom Energy</title>
 
 <style>
 :root{
-  --bg:#f4f5f7;
-  --white:#fff;
-  --dark:#1e293b;
-  --muted:#64748b;
-  --accent:#334155;
-  --cream:#f6f3eb;
-  --border:#e5e7eb;
+--bg:#f4f6f8;
+--white:#fff;
+--dark:#0f172a;
+--muted:#64748b;
+--accent:#1e293b;
+--border:#e5e7eb;
 }
+
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;
-  background:var(--bg);
-  color:var(--dark);
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,Inter,Roboto,sans-serif;
+background:var(--bg);
+color:var(--dark)
 }
-a{text-decoration:none;color:inherit}
 
 /* HEADER */
 header{
-  position:sticky;top:0;z-index:50;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border)
+position:sticky;top:0;z-index:50;
+background:rgba(255,255,255,.96);
+border-bottom:1px solid var(--border)
 }
 .header{
-  max-width:1200px;margin:auto;
-  padding:14px 20px;
-  display:flex;align-items:center;justify-content:space-between
+max-width:1200px;margin:auto;
+padding:14px 20px;
+display:flex;align-items:center;justify-content:space-between
 }
 .burger{font-size:26px;cursor:pointer}
-.logo{font-weight:800;letter-spacing:.5px}
+.logo{font-weight:900;letter-spacing:.5px}
 .cart-btn{font-size:22px;cursor:pointer;position:relative}
 .cart-count{
-  position:absolute;top:-6px;right:-8px;
-  background:#b91c1c;color:#fff;
-  font-size:11px;padding:2px 6px;border-radius:999px
+position:absolute;top:-6px;right:-8px;
+background:#b91c1c;color:#fff;
+font-size:11px;padding:2px 6px;border-radius:999px
 }
 
-/* SIDE MENU */
+/* MENU */
 .side{
-  position:fixed;top:0;left:-100%;
-  width:300px;height:100%;
-  background:#fff;z-index:100;
-  padding:30px;transition:.4s;
-  box-shadow:6px 0 30px rgba(0,0,0,.12)
+position:fixed;top:0;left:-100%;
+width:300px;height:100%;
+background:#fff;z-index:100;
+padding:30px;transition:.35s;
+box-shadow:8px 0 30px rgba(0,0,0,.12)
 }
 .side.active{left:0}
-.side h3{margin-top:0}
 .side a{
-  display:block;padding:14px 0;
-  font-weight:600;border-bottom:1px solid var(--border)
+display:block;padding:14px 0;
+border-bottom:1px solid var(--border);
+font-weight:600
 }
 
 /* MAIN */
 main{max-width:1200px;margin:auto;padding:40px 20px}
-.hero{
-  background:linear-gradient(135deg,var(--cream),#fff);
-  padding:70px;border-radius:26px;margin-bottom:70px
-}
-.hero h1{font-size:38px;margin-bottom:20px}
-.hero p{max-width:850px;font-size:18px;color:var(--muted);line-height:1.8}
-
 section{margin-bottom:90px}
-section h2{font-size:30px;margin-bottom:20px}
-section p{max-width:900px;color:var(--muted);line-height:1.8}
 
+/* PRODUCT CARDS */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px;margin-top:35px
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:28px
 }
 .card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:22px;padding:26px;
-  cursor:pointer;transition:.3s
+background:#fff;
+border-radius:22px;
+border:1px solid var(--border);
+overflow:hidden;
+cursor:pointer;
+transition:.3s
 }
 .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 25px 50px rgba(0,0,0,.08)
+transform:translateY(-6px);
+box-shadow:0 25px 60px rgba(0,0,0,.1)
 }
-.price{font-size:20px;font-weight:800}
+.img{
+height:200px;
+background:linear-gradient(135deg,#e5e7eb,#f8fafc);
+display:flex;align-items:center;justify-content:center;
+font-weight:700;color:#94a3b8
+}
+.card-body{padding:20px}
+.price{font-size:20px;font-weight:800;margin:10px 0}
+.buy{
+padding:12px 18px;
+background:var(--accent);color:#fff;
+border:none;border-radius:12px;
+cursor:pointer;width:100%
+}
 
-/* MODAL FULL */
+/* MODAL PRODUCT */
 .modal{
-  position:fixed;inset:0;
-  background:rgba(15,23,42,.75);
-  display:none;z-index:200
+position:fixed;inset:0;
+background:rgba(15,23,42,.8);
+display:none;z-index:200
 }
 .modal.active{display:block}
 .modal-box{
-  background:#fff;
-  max-width:1000px;
-  margin:20px auto;
-  border-radius:30px;
-  max-height:92vh;
-  display:flex;flex-direction:column;
-  overflow:hidden
+background:#fff;
+max-width:1100px;
+margin:20px auto;
+border-radius:30px;
+max-height:92vh;
+overflow:auto
 }
 .modal-head{
-  padding:20px 26px;
-  border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center
+position:sticky;top:0;
+background:#fff;
+padding:20px;
+border-bottom:1px solid var(--border);
+display:flex;justify-content:space-between;align-items:center
 }
-.modal-body{
-  padding:30px;
-  overflow:auto
-}
-.close{font-size:30px;cursor:pointer}
+.close{font-size:28px;cursor:pointer}
 
-/* TABS */
-.tabs{display:flex;gap:10px;flex-wrap:wrap}
-.tab{
-  padding:10px 16px;border-radius:999px;
-  border:1px solid var(--border);
-  font-weight:600;cursor:pointer
+/* GALLERY */
+.gallery{
+display:flex;gap:12px;
+padding:20px
 }
-.tab.active{background:var(--accent);color:#fff}
-.tab-content{display:none;margin-top:20px}
-.tab-content.active{display:block}
+.gallery div{
+flex:1;height:200px;
+background:linear-gradient(135deg,#e5e7eb,#f8fafc);
+border-radius:16px
+}
+
+.detail{padding:20px}
+.detail h2{margin-top:0}
+.detail .price{font-size:26px}
 
 /* CART */
 .cart-page{display:none}
-.cart-item{
-  display:flex;justify-content:space-between;
-  align-items:center;border-bottom:1px solid var(--border);
-  padding:14px 0
+.cart-head{
+display:flex;justify-content:space-between;align-items:center
 }
-.cart-item button{
-  background:none;border:none;
-  font-size:18px;cursor:pointer
+.cart-item{
+border-bottom:1px solid var(--border);
+padding:14px 0;
+display:flex;justify-content:space-between
 }
 
-/* FLOAT BTN */
+/* FLOAT */
 .float{
-  position:fixed;right:20px;bottom:20px;
-  background:var(--accent);color:#fff;
-  padding:14px 22px;border-radius:999px;
-  font-weight:600;z-index:300
-}
-footer{
-  padding:50px 20px;border-top:1px solid var(--border);
-  color:var(--muted)
+position:fixed;right:20px;bottom:20px;
+background:var(--accent);color:#fff;
+padding:14px 22px;border-radius:999px;
+font-weight:600
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="header">
-    <div class="burger" onclick="toggleMenu()">☰</div>
-    <div class="logo">AUTONOM ENERGY</div>
-    <div class="cart-btn" onclick="openCart()">🛒
-      <span id="cartCount" class="cart-count">0</span>
-    </div>
-  </div>
+<div class="header">
+<div class="burger" onclick="menu.classList.toggle('active')">☰</div>
+<div class="logo">AUTONOM ENERGY</div>
+<div class="cart-btn" onclick="openCart()">🛒 <span id="cartCount" class="cart-count">0</span></div>
+</div>
 </header>
 
 <nav class="side" id="menu">
-  <h3>Меню</h3>
-  <a onclick="show('home')">Головна</a>
-  <a onclick="show('inverters')">Інвертори</a>
-  <a onclick="show('batteries')">Батареї</a>
-  <a onclick="show('kits')">Комплекти</a>
-  <a onclick="show('about')">Про нас</a>
-  <a onclick="show('delivery')">Доставка</a>
-  <a onclick="show('contacts')">Контакти</a>
+<a onclick="show('home')">Головна</a>
+<a onclick="show('inverters')">Інвертори</a>
+<a onclick="show('batteries')">Батареї</a>
+<a onclick="show('kits')">Комплекти</a>
+<a onclick="show('about')">Про нас</a>
+<a onclick="show('delivery')">Доставка</a>
+<a onclick="show('contacts')">Контакти</a>
 </nav>
 
 <main>
 
 <section id="home">
-  <div class="hero">
-    <h1>Професійні системи автономного живлення</h1>
-    <p>
-      Ми спеціалізуємось на інверторах та акумуляторах LiFePO₄ для квартир,
-      будинків і бізнесу. Кожна система підбирається індивідуально та
-      проходить навантажувальне тестування перед продажем.
-    </p>
-  </div>
-
-  <h2>Популярні товари</h2>
-  <div class="grid" id="homeList"></div>
+<h2>Популярні товари</h2>
+<div class="grid" id="homeList"></div>
 </section>
 
 <section id="inverters" style="display:none">
-  <h2>Інвертори PowMr</h2>
-  <p>
-    Гібридні інвертори PowMr підтримують роботу від мережі, акумуляторів
-    та сонячних панелей. Чиста синусоїда гарантує стабільну роботу
-    побутової та чутливої техніки.
-  </p>
-  <div class="grid" id="invList"></div>
+<h2>Інвертори PowMr</h2>
+<p>Гібридні інвертори для дому та бізнесу.</p>
+<div class="grid" id="invList"></div>
 </section>
 
 <section id="batteries" style="display:none">
-  <h2>Акумулятори LiFePO₄</h2>
-  <p>
-    Наші батареї зібрані на осередках LiFePO₄ класу Grade A з ресурсом
-    понад 6000 циклів. Вбудована BMS забезпечує повний захист.
-  </p>
-  <div class="grid" id="batList"></div>
+<h2>LiFePO₄ батареї</h2>
+<p>Акумулятори з ресурсом понад 6000 циклів.</p>
+<div class="grid" id="batList"></div>
 </section>
 
 <section id="kits" style="display:none">
-  <h2>Готові комплекти</h2>
-  <p>
-    Комплекти включають інвертор PowMr, батарею LiFePO₄, кабелі
-    та попереднє налаштування системи.
-  </p>
-  <div class="grid" id="kitList"></div>
+<h2>Готові комплекти</h2>
+<p>Інвертор + батарея + кабелі.</p>
+<div class="grid" id="kitList"></div>
 </section>
 
 <section id="about" style="display:none">
-  <h2>Про нас</h2>
-  <p>
-    Autonom Energy — це команда інженерів з практичним досвідом
-    у сфері резервного та автономного живлення. Ми не продаємо
-    “коробки”, ми будуємо системи.
-  </p>
-  <p>
-    <strong>Чому нам довіряють:</strong><br>
-    • технічна консультація без маркетингових обіцянок<br>
-    • перевірені компоненти<br>
-    • тестування кожної системи<br>
-    • підтримка після покупки
-  </p>
+<h2>Про нас</h2>
+<p>
+Autonom Energy виникла як інженерний проєкт у відповідь на нестабільне
+електропостачання. Ми почали з власних систем резервного живлення,
+які з часом переросли у повноцінні рішення для клієнтів.
+</p>
+<p>
+<strong>Чому нам довіряють:</strong><br>
+• технічний підхід<br>
+• реальні характеристики<br>
+• підтримка після продажу
+</p>
 </section>
 
 <section id="delivery" style="display:none">
-  <h2>Доставка та оплата</h2>
-  <p>
-    Доставка по всій Україні службою Нова Пошта.
-    Батареї проходять перевірку перед відправленням.
-  </p>
-  <p>
-    Оплата: накладений платіж, переказ на карту (тимчасово),
-    безготівковий розрахунок.
-  </p>
+<h2>Доставка</h2>
+<p>
+Відправляємо по всій Україні Новою Поштою.
+Самовивіз можливий за домовленістю.
+</p>
+<p>
+Кожна батарея проходить перевірку перед відправленням.
+</p>
 </section>
 
 <section id="contacts" style="display:none">
-  <h2>Контакти</h2>
-  <p>
-    Телефон: +38 (0XX) XXX-XX-XX<br>
-    Telegram: @Flat15
-  </p>
+<h2>Контакти</h2>
+<p>Telegram: @Flat15</p>
 </section>
 
-<section class="cart-page" id="cart">
-  <h2>Корзина</h2>
-  <div id="cartItems"></div>
-  <p><strong>Оплата тимчасово недоступна</strong></p>
-  <button onclick="show('home')">Закрити</button>
+<section id="cart" class="cart-page">
+<div class="cart-head">
+<h2>Корзина</h2>
+<span class="close" onclick="show('home')">✕</span>
+</div>
+<div id="cartItems"></div>
+<p><strong>Оплата — заглушка</strong></p>
 </section>
 
 </main>
 
 <div class="modal" id="modal">
-  <div class="modal-box" id="modalBox"></div>
+<div class="modal-box" id="modalBox"></div>
 </div>
 
 <a class="float" href="https://t.me/Flat15">Консультація</a>
 
-<footer>
-  © 2026 Autonom Energy
-</footer>
-
 <script>
-/* DATA */
 const products=[
- {id:1,type:'inverter',name:'PowMr 6.2 kW',price:16000,
- specs:'48V, чиста синусоїда, MPPT 120A, PV до 6500W, Wi-Fi, LCD, захисти повні'},
- {id:2,type:'inverter',name:'PowMr 4.2 kW',price:13000,
- specs:'24V, чиста синусоїда, MPPT 100A, PV до 5000W'},
- {id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,
- specs:'12V, компактний, для базових навантажень'},
- {id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,
- specs:'24V, BMS 100A, >6000 циклів'},
- {id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,
- specs:'48V, BMS 150A, для дому'},
- {id:6,type:'battery',name:'LiFePO₄ 10 kWh',price:30000,
- specs:'48V, BMS 200A, максимальна автономність'}
+{id:1,type:'inverter',name:'PowMr 6.2 kW',price:16000,
+spec:'48V, MPPT 120A, PV 6500W, WiFi, чиста синусоїда'},
+{id:2,type:'inverter',name:'PowMr 4.2 kW',price:13000,
+spec:'24V, MPPT 100A, PV 5000W'},
+{id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,
+spec:'12V, компактний'},
+{id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,
+spec:'24V, BMS 100A'},
+{id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,
+spec:'48V, BMS 150A'},
+{id:6,type:'battery',name:'LiFePO₄ 10 kWh',price:30000,
+spec:'48V, BMS 200A'}
 ];
+
 let cart=[];
 
-/* UI */
-function toggleMenu(){menu.classList.toggle('active')}
 function show(id){
- document.querySelectorAll('main section').forEach(s=>s.style.display='none');
- document.getElementById(id).style.display='block';
- menu.classList.remove('active');
+document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+document.getElementById(id).style.display='block';
+menu.classList.remove('active');
 }
+
 function render(){
- homeList.innerHTML=invList.innerHTML=batList.innerHTML=kitList.innerHTML='';
- products.forEach(p=>{
-  const c=`<div class="card" onclick="openProduct(${p.id})">
-    <h3>${p.name}</h3>
-    <div class="price">${p.price} грн</div>
-  </div>`;
-  homeList.innerHTML+=c;
-  if(p.type==='inverter')invList.innerHTML+=c;
-  if(p.type==='battery')batList.innerHTML+=c;
- });
+homeList.innerHTML=invList.innerHTML=batList.innerHTML='';
+products.forEach(p=>{
+const card=`
+<div class="card" onclick="openProduct(${p.id})">
+<div class="img">Фото товару</div>
+<div class="card-body">
+<h3>${p.name}</h3>
+<div class="price">${p.price} грн</div>
+<button class="buy">Купити</button>
+</div>
+</div>`;
+homeList.innerHTML+=card;
+if(p.type==='inverter')invList.innerHTML+=card;
+if(p.type==='battery')batList.innerHTML+=card;
+});
 }
+
 function openProduct(id){
- const p=products.find(x=>x.id===id);
- modalBox.innerHTML=`
- <div class="modal-head">
-   <h3>${p.name}</h3>
-   <span class="close" onclick="closeModal()">×</span>
- </div>
- <div class="modal-body">
-   <div class="tabs">
-     <div class="tab active" onclick="tab(this,0)">Опис</div>
-     <div class="tab" onclick="tab(this,1)">Характеристики</div>
-     <div class="tab" onclick="tab(this,2)">Доставка</div>
-   </div>
-   <div class="tab-content active">
-     <p>${p.name} — професійне рішення автономного живлення.</p>
-     <p><strong>${p.price} грн</strong></p>
-     <button onclick="addToCart(${p.id})">Додати в корзину</button>
-   </div>
-   <div class="tab-content"><p>${p.specs}</p></div>
-   <div class="tab-content"><p>Нова Пошта по Україні</p></div>
- </div>`;
- modal.classList.add('active');
+const p=products.find(x=>x.id===id);
+modalBox.innerHTML=`
+<div class="modal-head">
+<h3>${p.name}</h3>
+<span class="close" onclick="modal.classList.remove('active')">✕</span>
+</div>
+<div class="gallery">
+<div></div><div></div><div></div>
+</div>
+<div class="detail">
+<h2>${p.name}</h2>
+<div class="price">${p.price} грн</div>
+<button class="buy" onclick="add(${p.id})">Додати в корзину</button>
+<h3>Характеристики</h3>
+<p>${p.spec}</p>
+<h3>Доставка</h3>
+<p>Самовивіз або Нова Пошта</p>
+</div>`;
+modal.classList.add('active');
 }
-function closeModal(){modal.classList.remove('active')}
-function tab(el,i){
- el.parentNode.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
- el.classList.add('active');
- el.parentNode.parentNode.querySelectorAll('.tab-content')
- .forEach((c,idx)=>c.classList.toggle('active',idx===i));
+
+function add(id){
+cart.push(id);
+cartCount.textContent=cart.length;
+modal.classList.remove('active');
 }
-function addToCart(id){
- cart.push(id);
- cartCount.textContent=cart.length;
- closeModal();
-}
+
 function openCart(){
- show('cart');
- cartItems.innerHTML='';
- cart.forEach((id,i)=>{
-  const p=products.find(x=>x.id===id);
-  cartItems.innerHTML+=`
-   <div class="cart-item">
-    ${p.name} — ${p.price} грн
-    <button onclick="remove(${i})">✕</button>
-   </div>`;
- });
+show('cart');
+cartItems.innerHTML='';
+cart.forEach((id,i)=>{
+const p=products.find(x=>x.id===id);
+cartItems.innerHTML+=`
+<div class="cart-item">
+${p.name} — ${p.price} грн
+<button onclick="cart.splice(${i},1);openCart()">✕</button>
+</div>`;
+});
 }
-function remove(i){
- cart.splice(i,1);
- cartCount.textContent=cart.length;
- openCart();
-}
+
 render();
 </script>
 
