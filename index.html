@@ -1,152 +1,259 @@
+<!--
+ENERGY SHOP — PRO VERSION
+Повноцінний магазин автономного живлення
+HTML + CSS + JS в одному файлі (для GitHub Pages)
+Дизайн: преміум (білий / сірий / кремовий)
+Функціонал: каталог, модальні вікна товарів, корзина, меню, контентні сторінки
+-->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Energy Shop</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Arial;background:#f4f6f8;color:#111}
-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:14px}
-.burger,.cart-btn{font-size:24px;cursor:pointer}
-.logo{font-weight:800}
-.menu{position:fixed;top:0;left:-100%;width:280px;height:100%;background:#fff;z-index:100;padding:20px;transition:.3s}
-.menu.active{left:0}
-.menu a{display:block;padding:14px 0;border-bottom:1px solid #eee;text-decoration:none;color:#111;font-weight:600}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
-.overlay.active{display:block}
-.section{display:none;padding:16px}
-.section.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);cursor:pointer}
-.card img{width:100%;border-radius:12px}
-.card h4{margin:8px 0 4px;font-size:14px}
-.price{font-weight:800}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;overflow:auto}
-.modal-content{background:#fff;margin:20px auto;max-width:500px;border-radius:20px;padding:16px}
-.close{font-size:26px;text-align:right;cursor:pointer}
-.tabs{display:flex;gap:8px;margin-top:12px}
-.tab{flex:1;text-align:center;padding:10px;border-radius:10px;background:#eee;font-weight:600;cursor:pointer}
-.tab.active{background:#111;color:#fff}
-.tab-content{display:none;margin-top:10px;font-size:14px}
-.tab-content.active{display:block}
-button{width:100%;padding:14px;border:none;border-radius:14px;background:#111;color:#fff;font-size:16px;margin-top:12px}
-.cart-item{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between}
-.cart-header{display:flex;justify-content:space-between;align-items:center}
-.floating{position:fixed;right:16px;bottom:20px;background:#111;color:#fff;padding:14px 18px;border-radius:999px;z-index:60}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Автономне живлення | Інвертори та LiFePO₄</title>
+
+  <style>
+    :root{
+      --bg:#f6f7f5;
+      --card:#ffffff;
+      --dark:#1f2933;
+      --muted:#6b7280;
+      --accent:#2f3e46;
+      --accent-soft:#cad2c5;
+      --cream:#f3efe6;
+      --border:#e5e7eb;
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    /* HEADER */
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      max-width:1200px;margin:auto;padding:16px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .burger{font-size:26px;cursor:pointer}
+    .logo{font-weight:800;letter-spacing:.4px}
+    .cart-btn{position:relative;font-size:22px;cursor:pointer}
+    .cart-count{
+      position:absolute;top:-6px;right:-8px;
+      background:#b91c1c;color:#fff;font-size:11px;
+      padding:2px 6px;border-radius:999px
+    }
+
+    /* SIDE MENU */
+    .side-menu{
+      position:fixed;top:0;left:-100%;width:280px;height:100%;
+      background:#fff;z-index:100;padding:30px;
+      transition:.4s;box-shadow:4px 0 30px rgba(0,0,0,.1)
+    }
+    .side-menu.active{left:0}
+    .side-menu h3{margin-top:0}
+    .side-menu a{display:block;padding:12px 0;font-weight:600;border-bottom:1px solid var(--border)}
+
+    /* MAIN */
+    main{max-width:1200px;margin:auto;padding:40px 20px}
+
+    .hero{
+      background:linear-gradient(135deg,var(--cream),#fff);
+      padding:60px;border-radius:var(--radius);
+      margin-bottom:50px
+    }
+    .hero h1{font-size:36px;margin-bottom:20px}
+    .hero p{max-width:700px;color:var(--muted);font-size:17px}
+
+    /* SECTIONS */
+    section{margin-bottom:80px}
+    section h2{font-size:28px;margin-bottom:20px}
+    section p{color:var(--muted);line-height:1.7;max-width:900px}
+
+    /* CATALOG */
+    .grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;margin-top:30px
+    }
+    .card{
+      background:var(--card);border-radius:var(--radius);
+      padding:24px;border:1px solid var(--border);
+      transition:.3s;cursor:pointer
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+    .card h3{margin-top:0}
+    .price{font-weight:800;margin:10px 0}
+
+    /* MODAL PRODUCT */
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);
+      display:none;align-items:center;justify-content:center;z-index:200
+    }
+    .modal.active{display:flex}
+    .modal-box{
+      background:#fff;width:92%;max-width:520px;max-height:90vh;
+      overflow:auto;border-radius:24px;padding:30px
+    }
+    .close{font-size:26px;cursor:pointer;float:right}
+
+    /* CART PAGE */
+    .cart-page{display:none}
+    .cart-item{border-bottom:1px solid var(--border);padding:14px 0}
+
+    /* FLOAT BUTTON */
+    .float-btn{
+      position:fixed;bottom:20px;right:20px;z-index:300;
+      background:var(--accent);color:#fff;
+      padding:14px 18px;border-radius:999px;font-weight:600
+    }
+
+    footer{padding:50px 20px;border-top:1px solid var(--border);color:var(--muted)}
+  </style>
 </head>
 <body>
+
 <header>
- <div class="burger" onclick="openMenu()">☰</div>
- <div class="logo">Energy Shop</div>
- <div class="cart-btn" onclick="showSection('cart')">🛒</div>
+  <div class="header-inner">
+    <div class="burger" onclick="toggleMenu()">☰</div>
+    <div class="logo">AUTONOM ENERGY</div>
+    <div class="cart-btn" onclick="openCart()">🛒<span id="cartCount" class="cart-count">0</span></div>
+  </div>
 </header>
 
-<div class="menu" id="menu">
- <a onclick="navigate('home')">Головна</a>
- <a onclick="navigate('inverters')">Інвертори</a>
- <a onclick="navigate('batteries')">Батареї</a>
- <a onclick="navigate('about')">Про нас</a>
- <a onclick="navigate('delivery')">Доставка</a>
- <a onclick="navigate('contacts')">Контакти</a>
-</div>
-<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<nav class="side-menu" id="menu">
+  <h3>Меню</h3>
+  <a onclick="showSection('home')">Головна</a>
+  <a onclick="showSection('inverters')">Інвертори</a>
+  <a onclick="showSection('batteries')">Батареї</a>
+  <a onclick="showSection('about')">Про нас</a>
+  <a onclick="showSection('delivery')">Доставка</a>
+  <a onclick="showSection('contacts')">Контакти</a>
+</nav>
 
-<section class="section active" id="home">
- <h2>Популярні комплекти</h2>
- <div class="grid" id="homeGrid"></div>
-</section>
+<main>
 
-<section class="section" id="inverters">
- <h2>Інвертори PowMR</h2>
- <div class="grid" id="invGrid"></div>
-</section>
-
-<section class="section" id="batteries">
- <h2>LiFePO4 батареї</h2>
- <div class="grid" id="batGrid"></div>
-</section>
-
-<section class="section" id="about">
- <h2>Про нас</h2>
- <p>Ми спеціалізуємось на автономних енергосистемах для дому та бізнесу.</p>
- <h3>Чому нам довіряють</h3>
- <ul>
-  <li>Понад 5 років досвіду</li>
-  <li>Реальні гарантії</li>
-  <li>Техпідтримка після покупки</li>
- </ul>
-</section>
-
-<section class="section" id="delivery">
- <h2>Доставка</h2>
- <p>Нова Пошта по Україні 1–2 дні.</p>
- <p>Самовивіз за домовленістю.</p>
- <p>Упаковка та страхування включені.</p>
-</section>
-
-<section class="section" id="contacts">
- <h2>Контакти</h2>
- <p>📞 +38 (0XX) XXX-XX-XX</p>
- <p>💬 Telegram: @energyshop</p>
-</section>
-
-<section class="section" id="cart">
- <div class="cart-header">
-  <h2>Корзина</h2>
-  <div class="close" onclick="showSection('home')">✕</div>
- </div>
- <div id="cartItems"></div>
- <h3 id="total"></h3>
- <button>Оплатити (заглушка)</button>
-</section>
-
-<div class="modal" id="modal">
- <div class="modal-content">
-  <div class="close" onclick="modal.style.display='none'">✕</div>
-  <img id="mImg" style="width:100%;border-radius:14px">
-  <h3 id="mTitle"></h3>
-  <div class="price" id="mPrice"></div>
-  <div class="tabs">
-   <div class="tab active" onclick="switchTab('desc')">Опис</div>
-   <div class="tab" onclick="switchTab('chars')">Характеристики</div>
-   <div class="tab" onclick="switchTab('ship')">Доставка</div>
+<section id="home">
+  <div class="hero">
+    <h1>Професійні системи автономного живлення</h1>
+    <p>Ми спеціалізуємось на підборі, складанні та продажу інверторів і акумуляторів LiFePO₄ для квартир, будинків та бізнесу. Наші рішення дозволяють залишатись з електроенергією навіть під час повних відключень.</p>
   </div>
-  <div id="desc" class="tab-content active"></div>
-  <div id="chars" class="tab-content"></div>
-  <div id="ship" class="tab-content">Відправка Новою Поштою протягом 24 годин</div>
-  <button onclick="addToCart()">Додати в корзину</button>
- </div>
+
+  <h2>Популярні товари</h2>
+  <div class="grid" id="homeProducts"></div>
+</section>
+
+<section id="inverters" style="display:none">
+  <h2>Інвертори PowMr</h2>
+  <p>Гібридні інвертори PowMr — це надійне рішення для роботи з акумуляторами, мережею та сонячними панелями. Підтримка чистої синусоїди гарантує безпечну роботу побутової техніки.</p>
+  <div class="grid" id="inverterList"></div>
+</section>
+
+<section id="batteries" style="display:none">
+  <h2>Акумулятори LiFePO₄</h2>
+  <p>Наші батареї зібрані на базі елементів LiFePO₄ класу Grade A з ресурсом понад 6000 циклів. Вони безпечні, стабільні та ідеально підходять для щоденного використання.</p>
+  <div class="grid" id="batteryList"></div>
+</section>
+
+<section id="about" style="display:none">
+  <h2>Про нас</h2>
+  <p>Ми почали свою діяльність як інженерна команда, що займалась резервним живленням для серверних та приватних будинків. З роками ми накопичили практичний досвід, який дозволяє нам підбирати рішення без переплат та експериментів.</p>
+  <p><strong>Чому нам довіряють:</strong><br>• реальні технічні консультації<br>• перевірені комплектуючі<br>• тестування кожної системи<br>• підтримка після покупки</p>
+</section>
+
+<section id="delivery" style="display:none">
+  <h2>Доставка та оплата</h2>
+  <p>Доставка здійснюється по всій Україні службою Нова Пошта. Всі батареї проходять перевірку перед відправкою.</p>
+  <p>Способи оплати: накладений платіж, переказ на карту (заглушка), безготівковий розрахунок.</p>
+</section>
+
+<section id="contacts" style="display:none">
+  <h2>Контакти</h2>
+  <p>Телефон: +38 (0XX) XXX-XX-XX<br>Telegram: @yourtelegram</p>
+</section>
+
+<section class="cart-page" id="cart">
+  <h2>Ваша корзина</h2>
+  <div id="cartItems"></div>
+  <p><strong>Оплата тимчасово недоступна</strong></p>
+  <button onclick="showSection('home')">Закрити</button>
+</section>
+
+</main>
+
+<div class="modal" id="productModal">
+  <div class="modal-box" id="modalBox"></div>
 </div>
 
-<div class="floating">Звʼязатися</div>
+<a class="float-btn" href="https://t.me/Flat15">Консультація</a>
+
+<footer>
+  <p>© 2026 AUTONOM ENERGY — автономне живлення нового рівня</p>
+</footer>
 
 <script>
-const products={
- inverters:[
-  {title:'PowMR 6.2 kW',price:32000,img:'https://via.placeholder.com/600',desc:'Потужний інвертор для дому',chars:['6.2 kW','48V','MPPT']},
-  {title:'PowMR 4.2 kW',price:26000,img:'https://via.placeholder.com/600',desc:'Оптимальний варіант',chars:['4.2 kW','48V','MPPT']},
-  {title:'PowMR 1.6 kW',price:16000,img:'https://via.placeholder.com/600',desc:'Для малого споживання',chars:['1.6 kW','24V','MPPT']}
- ],
- batteries:[
-  {title:'Батарея 2.5 kW',price:18000,img:'https://via.placeholder.com/600',desc:'Компактна батарея',chars:['LiFePO4','2.5 kW','BMS']},
-  {title:'Батарея 5 kW',price:32000,img:'https://via.placeholder.com/600',desc:'Золота середина',chars:['LiFePO4','5 kW','BMS']},
-  {title:'Батарея 10 kW',price:60000,img:'https://via.placeholder.com/600',desc:'Максимальна автономність',chars:['LiFePO4','10 kW','BMS']}
- ]
-};
-let cart=[];let current=null;
-function render(){renderGrid('invGrid',products.inverters);renderGrid('batGrid',products.batteries);}
-function renderGrid(id,arr){const g=document.getElementById(id);g.innerHTML='';arr.forEach(p=>{const c=document.createElement('div');c.className='card';c.innerHTML=`<img src="${p.img}"><h4>${p.title}</h4><div class='price'>${p.price} ₴</div>`;c.onclick=()=>openModal(p);g.appendChild(c);});}
-function openModal(p){current=p;mImg.src=p.img;mTitle.innerText=p.title;mPrice.innerText=p.price+' ₴';desc.innerText=p.desc;chars.innerHTML=p.chars.join('<br>');modal.style.display='block';switchTab('desc');}
-function switchTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');document.getElementById(id).classList.add('active');}
-function addToCart(){cart.push(current);modal.style.display='none';}
-function showSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');if(id==='cart')renderCart();}
-function renderCart(){cartItems.innerHTML='';let sum=0;cart.forEach(p=>{sum+=p.price;cartItems.innerHTML+=`<div class='cart-item'><span>${p.title}</span><span>${p.price} ₴</span></div>`});total.innerText='Разом: '+sum+' ₴';}
-function navigate(id){showSection(id);closeMenu();}
-function openMenu(){menu.classList.add('active');overlay.classList.add('active');}
-function closeMenu(){menu.classList.remove('active');overlay.classList.remove('active');}
-render();
+  const products = [
+    {id:1,type:'inverter',name:'PowMr 6.2 kW',price:13000,desc:'48В, чиста синусоїда, підтримка сонця до 6 кВт, LCD дисплей, захист від перевантаження.'},
+    {id:2,type:'inverter',name:'PowMr 4.2 kW',price:11000,desc:'24В, стабільна робота, ідеальний для квартири.'},
+    {id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,desc:'Компактний інвертор для базових потреб.'},
+    {id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,desc:'24В, BMS 100A, до 6000 циклів.'},
+    {id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,desc:'48В, BMS 150A, ідеальна для дому.'},
+    {id:6,type:'battery',name:'LiFePO₄ 10 kWh',price:30000,desc:'Максимальна автономність, BMS 200A.'}
+  ];
+
+  let cart = [];
+
+  function toggleMenu(){document.getElementById('menu').classList.toggle('active')}
+
+  function showSection(id){
+    document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+    document.getElementById(id).style.display='block';
+    document.getElementById('menu').classList.remove('active');
+  }
+
+  function render(){
+    const home = document.getElementById('homeProducts');
+    const inv = document.getElementById('inverterList');
+    const bat = document.getElementById('batteryList');
+    home.innerHTML = inv.innerHTML = bat.innerHTML = '';
+
+    products.forEach(p=>{
+      const card = `<div class='card' onclick='openProduct(${p.id})'><h3>${p.name}</h3><div class='price'>${p.price} грн</div><p>${p.desc}</p></div>`;
+      home.innerHTML += card;
+      if(p.type==='inverter') inv.innerHTML += card;
+      if(p.type==='battery') bat.innerHTML += card;
+    });
+  }
+
+  function openProduct(id){
+    const p = products.find(x=>x.id===id);
+    document.getElementById('modalBox').innerHTML = `<span class='close' onclick='closeModal()'>×</span><h3>${p.name}</h3><p>${p.desc}</p><p><strong>${p.price} грн</strong></p><button onclick='addToCart(${p.id})'>Додати в корзину</button>`;
+    document.getElementById('productModal').classList.add('active');
+  }
+
+  function closeModal(){document.getElementById('productModal').classList.remove('active')}
+
+  function addToCart(id){cart.push(id);document.getElementById('cartCount').innerText=cart.length;closeModal()}
+
+  function openCart(){
+    showSection('cart');
+    const list = document.getElementById('cartItems');
+    list.innerHTML='';
+    cart.forEach(i=>{const p=products.find(x=>x.id===i);list.innerHTML+=`<div class='cart-item'>${p.name} — ${p.price} грн</div>`});
+  }
+
+  render();
 </script>
+
 </body>
 </html>
