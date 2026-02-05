@@ -1,335 +1,132 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Svitlobud Pro — Магазин енергообладнання</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --accent: #f39c12; /* Насичений помаранчевий */
-            --dark: #2c3e50;   /* Темно-синій графіт */
-            --light: #ecf0f1;
-            --white: #ffffff;
-            --gray: #95a5a6;
-            --success: #27ae60;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
-            --radius: 8px;
-        }
+<meta charset="UTF-8">
+<title>Енергосистеми</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Arial;background:#f6f6f6}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:#fff;border-bottom:1px solid #ddd}
+.logo{font-weight:700;font-size:20px}
+.cart{font-size:20px;cursor:pointer}
+.catalog{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#fff;border-radius:12px;padding:15px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card img{width:100%;border-radius:8px}
+.card h3{margin:10px 0 5px}
+.price{font-weight:700}
 
-        * { box-sizing: border-box; transition: 0.2s ease-in-out; }
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6)}
+.modal-content{background:#fff;width:95%;max-width:900px;margin:40px auto;border-radius:16px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.modal img{width:100%;border-radius:12px}
+.close{position:absolute;right:20px;top:15px;font-size:28px;cursor:pointer}
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            margin: 0;
-            background: #f8f9fa;
-            color: var(--dark);
-        }
+.tabs{display:flex;gap:10px;margin-top:15px}
+.tab{padding:8px 12px;border-radius:8px;background:#eee;cursor:pointer}
+.tab.active{background:#333;color:#fff}
+.tab-content{display:none;margin-top:10px}
+.tab-content.active{display:block}
 
-        /* --- ВЕРХНЯ ПАНЕЛЬ (Top Bar) --- */
-        .top-bar {
-            background: #1a252f;
-            color: white;
-            padding: 8px 5%;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* --- ХЕДЕР --- */
-        header {
-            background: var(--white);
-            padding: 15px 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--dark);
-            text-decoration: none;
-        }
-
-        .logo span { color: var(--accent); }
-
-        .search-box {
-            flex-grow: 0.5;
-            margin: 0 30px;
-            display: flex;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: var(--radius) 0 0 var(--radius);
-            outline: none;
-        }
-
-        .search-box button {
-            background: var(--accent);
-            border: none;
-            padding: 0 20px;
-            color: white;
-            border-radius: 0 var(--radius) var(--radius) 0;
-            cursor: pointer;
-        }
-
-        .header-tools {
-            display: flex;
-            gap: 20px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .cart-icon { position: relative; }
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--accent);
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 50%;
-        }
-
-        /* --- КАТАЛОГ ТА КОНТЕНТ --- */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 30px;
-            padding: 30px 5%;
-        }
-
-        /* Сайдбар фільтри */
-        .sidebar {
-            background: var(--white);
-            padding: 20px;
-            border-radius: var(--radius);
-            height: fit-content;
-            box-shadow: var(--shadow);
-        }
-
-        .filter-group { margin-bottom: 20px; }
-        .filter-group h4 { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .filter-group label { display: block; margin: 5px 0; cursor: pointer; font-size: 14px; }
-
-        /* Сітка товарів */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 15px;
-            position: relative;
-            text-align: center;
-            border: 1px solid #eee;
-        }
-
-        .card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transform: translateY(-5px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-
-        .card h3 {
-            font-size: 15px;
-            height: 40px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .card .price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .btn-buy {
-            width: 100%;
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-buy:hover { background: var(--accent); }
-
-        .btn-buy.added { background: var(--success); }
-
-        /* Модальне вікно кошика */
-        #cart-modal {
-            display: none;
-            position: fixed;
-            right: 0; top: 0;
-            width: 350px; height: 100%;
-            background: white;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        /* Адаптивність */
-        @media (max-width: 900px) {
-            .main-layout { grid-template-columns: 1fr; }
-            .sidebar { display: none; } /* Сховати фільтри на мобілках */
-        }
-    </style>
+button{padding:12px 18px;border:none;border-radius:10px;background:#333;color:#fff;font-size:16px;cursor:pointer}
+</style>
 </head>
+
 <body>
 
-    <div class="top-bar">
-        <div><i class="fas fa-phone"></i> +38 (067) 000-00-00 | Пн-Пт: 09:00 - 18:00</div>
-        <div>Доставка по всій Україні <i class="fas fa-truck"></i></div>
+<header>
+  <div class="logo">Енергосистеми</div>
+  <div class="cart">🛒</div>
+</header>
+
+<div class="catalog" id="catalog"></div>
+
+<!-- MODAL -->
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <img id="modalImg">
+    <div>
+      <h2 id="modalTitle"></h2>
+      <p class="price" id="modalPrice"></p>
+      <button>Додати в кошик</button>
+
+      <div class="tabs">
+        <div class="tab active" onclick="openTab('chars')">Характеристики</div>
+        <div class="tab" onclick="openTab('delivery')">Доставка</div>
+        <div class="tab" onclick="openTab('payment')">Оплата</div>
+      </div>
+
+      <div id="chars" class="tab-content active"></div>
+      <div id="delivery" class="tab-content">
+        <p>Нова Пошта • 1–2 дні</p>
+      </div>
+      <div id="payment" class="tab-content">
+        <p>Оплата карткою (незабаром)</p>
+      </div>
     </div>
+  </div>
+</div>
 
-    <header>
-        <a href="#" class="logo">SVITLO<span>BUD</span></a>
-        
-        <div class="search-box">
-            <input type="text" placeholder="Пошук товарів (інвертори, АКБ...)">
-            <button><i class="fas fa-search"></i></button>
-        </div>
+<script>
+const products=[
+ {
+  id:1,
+  title:"Інвертор 5 кВт 48V",
+  price:"16 000 ₴",
+  img:"https://via.placeholder.com/500x350",
+  chars:[
+    "Потужність: 5 кВт",
+    "Напруга: 48V",
+    "Чиста синусоїда",
+    "Підтримка LiFePO₄"
+  ]
+ },
+ {
+  id:2,
+  title:"Батарея LiFePO₄ 5 кВт·год",
+  price:"17 000 ₴",
+  img:"https://via.placeholder.com/500x350",
+  chars:[
+    "Ємність: 5 кВт·год",
+    "Напруга: 48V",
+    "BMS з балансуванням",
+    "6000+ циклів"
+  ]
+ }
+];
 
-        <div class="header-tools">
-            <i class="far fa-heart"></i>
-            <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-basket"></i>
-                <span class="cart-count" id="cart-count">0</span>
-            </div>
-            <i class="far fa-user"></i>
-        </div>
-    </header>
+const catalog=document.getElementById("catalog");
 
-    <main class="main-layout">
-        <aside class="sidebar">
-            <div class="filter-group">
-                <h4>Категорії</h4>
-                <label><input type="checkbox"> Інвертори</label>
-                <label><input type="checkbox"> Акумулятори</label>
-                <label><input type="checkbox"> Сонячні панелі</label>
-                <label><input type="checkbox"> Генератори</label>
-            </div>
-            <div class="filter-group">
-                <h4>Бренд</h4>
-                <label><input type="checkbox"> Must</label>
-                <label><input type="checkbox"> Deye</label>
-                <label><input type="checkbox"> Victron</label>
-            </div>
-        </aside>
+products.forEach(p=>{
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+    <img src="${p.img}">
+    <h3>${p.title}</h3>
+    <p class="price">${p.price}</p>
+  `;
+  card.onclick=()=>openProduct(p);
+  catalog.appendChild(card);
+});
 
-        <section>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2>Обладнання для енергонезалежності</h2>
-                <select style="padding: 5px; border-radius: 5px;">
-                    <option>Спочатку дешеві</option>
-                    <option>Спочатку дорогі</option>
-                    <option>За рейтингом</option>
-                </select>
-            </div>
+function openProduct(p){
+ document.getElementById("modalImg").src=p.img;
+ document.getElementById("modalTitle").innerText=p.title;
+ document.getElementById("modalPrice").innerText=p.price;
+ document.getElementById("chars").innerHTML=p.chars.map(c=>`<p>• ${c}</p>`).join("");
+ document.getElementById("productModal").style.display="block";
+}
 
-            <div class="products-grid" id="products">
-                <div class="card">
-                    <img src="https://via.placeholder.com/200x180?text=Inverter" alt="Inverter">
-                    <h3>Гібридний інвертор Deye 5кВт</h3>
-                    <span class="price">42 500 грн</span>
-                    <button class="btn-buy" onclick="addToCart(this, 'Deye 5кВт', 42500)">
-                        <i class="fas fa-cart-plus"></i> Купити
-                    </button>
-                </div>
+function closeModal(){
+ document.getElementById("productModal").style.display="none";
+}
 
-                <div class="card">
-                    <img src="https://via.placeholder.com/200x180?text=Battery" alt="Battery">
-                    <h3>Акумулятор Pylontech US5000</h3>
-                    <span class="price">68 000 грн</span>
-                    <button class="btn-buy" onclick="addToCart(this, 'Pylontech US5000', 68000)">
-                        <i class="fas fa-cart-plus"></i> Купити
-                    </button>
-                </div>
-
-                <div class="card">
-                    <img src="https://via.placeholder.com/200x180?text=EcoFlow" alt="EcoFlow">
-                    <h3>EcoFlow DELTA 2</h3>
-                    <span class="price">52 000 грн</span>
-                    <button class="btn-buy" onclick="addToCart(this, 'EcoFlow DELTA 2', 52000)">
-                        <i class="fas fa-cart-plus"></i> Купити
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="cart-modal">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3>Кошик</h3>
-            <button onclick="toggleCart()" style="border:none; background:none; cursor:pointer; font-size: 20px;">&times;</button>
-        </div>
-        <hr>
-        <div id="cart-items">Кошик порожній</div>
-        <div style="position: absolute; bottom: 20px; width: 85%;">
-            <h4 id="total-price">Разом: 0 грн</h4>
-            <button class="btn-buy" style="background: var(--success);">Оформити замовлення</button>
-        </div>
-    </div>
-
-    <script>
-        let cart = [];
-        let total = 0;
-
-        function addToCart(btn, name, price) {
-            cart.push({name, price});
-            total += price;
-            
-            // Ефект кнопки
-            btn.innerHTML = '<i class="fas fa-check"></i> В кошику';
-            btn.classList.add('added');
-            
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const itemsContainer = document.getElementById('cart-items');
-            
-            if (cart.length > 0) {
-                itemsContainer.innerHTML = cart.map(item => 
-                    `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px;">
-                        <span>${item.name}</span>
-                        <b>${item.price} грн</b>
-                    </div>`
-                ).join('');
-            }
-            
-            document.getElementById('total-price').innerText = `Разом: ${total} грн`;
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-        }
-    </script>
+function openTab(id){
+ document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+ document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+ event.target.classList.add("active");
+ document.getElementById(id).classList.add("active");
+}
+</script>
 
 </body>
 </html>
