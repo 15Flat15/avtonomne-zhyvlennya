@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autonom Energy</title>
+<title>Autonom Energy — автономне живлення</title>
 
 <style>
 :root{
---bg:#f4f6f8;
+--bg:#f3f5f7;
 --white:#ffffff;
 --dark:#0f172a;
 --muted:#64748b;
 --accent:#1e293b;
 --border:#e5e7eb;
+--soft:#f8fafc;
 }
 
 *{box-sizing:border-box}
@@ -26,7 +27,7 @@ color:var(--dark)
 /* HEADER */
 header{
 position:sticky;top:0;z-index:50;
-background:rgba(255,255,255,.96);
+background:rgba(255,255,255,.97);
 border-bottom:1px solid var(--border)
 }
 .header{
@@ -35,7 +36,7 @@ padding:14px 20px;
 display:flex;align-items:center;justify-content:space-between
 }
 .burger{font-size:26px;cursor:pointer}
-.logo{font-weight:900;letter-spacing:.5px}
+.logo{font-weight:900;letter-spacing:.6px}
 .cart-btn{font-size:22px;cursor:pointer;position:relative}
 .cart-count{
 position:absolute;top:-6px;right:-8px;
@@ -65,14 +66,16 @@ font-weight:600
 
 /* MAIN */
 main{max-width:1200px;margin:auto;padding:40px 20px}
-section{margin-bottom:90px}
+section{margin-bottom:100px}
 
-/* PRODUCT CARDS */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:28px
 }
+
+/* CARD */
 .card{
 background:#fff;
 border-radius:22px;
@@ -91,7 +94,7 @@ background:linear-gradient(135deg,#e5e7eb,#f8fafc);
 display:flex;align-items:center;justify-content:center;
 font-weight:700;color:#94a3b8
 }
-.card-body{padding:20px}
+.card-body{padding:22px}
 .price{font-size:20px;font-weight:800;margin:10px 0}
 .buy{
 padding:12px 18px;
@@ -130,24 +133,36 @@ display:flex;gap:12px;
 padding:20px
 }
 .gallery div{
-flex:1;height:220px;
+flex:1;height:240px;
 background:linear-gradient(135deg,#e5e7eb,#f8fafc);
-border-radius:16px
+border-radius:18px
 }
 
-.detail{padding:20px}
+.detail{padding:30px}
 .detail h2{margin-top:0}
-.detail .price{font-size:26px}
+.detail .price{font-size:28px;margin-bottom:16px}
 
 /* CART */
 .cart-page{display:none}
-.cart-head{
-display:flex;justify-content:space-between;align-items:center
+.cart-box{
+background:#fff;
+border-radius:24px;
+padding:30px;
+border:1px solid var(--border)
 }
 .cart-item{
-border-bottom:1px solid var(--border);
-padding:14px 0;
-display:flex;justify-content:space-between
+display:flex;justify-content:space-between;
+padding:16px 0;border-bottom:1px solid var(--border)
+}
+.cart-total{
+font-size:22px;font-weight:800;margin-top:20px
+}
+.checkout{
+margin-top:20px;
+padding:14px;
+width:100%;
+background:var(--accent);
+color:#fff;border:none;border-radius:14px
 }
 
 /* FLOAT */
@@ -188,51 +203,58 @@ font-weight:600
 
 <section id="home">
 <h2>Популярні рішення</h2>
+<p>Найчастіше обирають для квартир і будинків.</p>
 <div class="grid" id="homeList"></div>
-</section>
-
-<section id="inverters" style="display:none">
-<h2>Інвертори PowMr</h2>
-<p>Гібридні інвертори для автономного та резервного живлення.</p>
-<div class="grid" id="invList"></div>
-</section>
-
-<section id="batteries" style="display:none">
-<h2>LiFePO₄ батареї</h2>
-<p>Власна збірка з BMS та комірок класу A.</p>
-<div class="grid" id="batList"></div>
 </section>
 
 <section id="kits" style="display:none">
 <h2>Готові комплекти</h2>
-<p><strong>Економ</strong> — квартира • <strong>Для будинку</strong> • <strong>Максимум автономності</strong></p>
+<p>
+Комплексні рішення «під ключ» — інвертор, батарея, кабелі та налаштування.
+</p>
 <div class="grid" id="kitList"></div>
 </section>
 
 <section id="about" style="display:none">
 <h2>Про нас</h2>
 <p>
-Autonom Energy — це інженерний проєкт, який почався з власних систем
-резервного живлення для дому. Ми не перепродаємо готові рішення —
-ми тестуємо, збираємо та налаштовуємо системи під реальні умови.
+Autonom Energy з’явився не як магазин, а як практичне рішення.
+Починалося все з власної потреби забезпечити стабільне живлення
+квартири під час відключень.
+</p>
+<p>
+Ми тестували різні інвертори, типи акумуляторів, BMS та конфігурації.
+З часом цей досвід переріс у повноцінні рішення для клієнтів —
+без маркетингових обіцянок, тільки реальні цифри та чесні рекомендації.
 </p>
 <p>
 <strong>Чому нам довіряють:</strong><br>
-• реальні характеристики без маркетингу<br>
-• правильний підбір під навантаження<br>
-• підтримка після продажу<br>
-• досвід реальної експлуатації
+• ми збираємо батареї самі<br>
+• підбираємо обладнання під навантаження<br>
+• пояснюємо плюси і мінуси кожного рішення<br>
+• залишаємося на зв’язку після покупки
 </p>
 </section>
 
 <section id="delivery" style="display:none">
-<h2>Доставка та гарантія</h2>
+<h2>Доставка та отримання</h2>
 <p>
-• Самовивіз за домовленістю<br>
-• Нова Пошта по Україні<br>
-• Надійне пакування батарей<br>
-• Гарантія 12 місяців<br>
-• Перед відправкою — тестування
+<strong>Самовивіз:</strong><br>
+Безкоштовний самовивіз з Печерського району м. Київ
+(за попередньою домовленістю).
+</p>
+<p>
+<strong>Доставка по Україні:</strong><br>
+Відправка Новою Поштою. Акумулятори пакуються у жорстку тару,
+кожна система проходить перевірку перед відправленням.
+</p>
+<p>
+<strong>Терміни:</strong><br>
+Відправка 1–2 робочі дні після замовлення.
+</p>
+<p>
+<strong>Гарантія:</strong><br>
+12 місяців на обладнання та збірку.
 </p>
 </section>
 
@@ -246,12 +268,12 @@ Autonom Energy — це інженерний проєкт, який почавс
 </section>
 
 <section id="cart" class="cart-page">
-<div class="cart-head">
+<div class="cart-box">
 <h2>Корзина</h2>
-<span class="close" onclick="show('home')">✕</span>
-</div>
 <div id="cartItems"></div>
-<p><strong>Оплата — заглушка</strong></p>
+<div class="cart-total" id="cartTotal"></div>
+<button class="checkout">Перейти до оплати (заглушка)</button>
+</div>
 </section>
 
 </main>
@@ -265,47 +287,25 @@ Autonom Energy — це інженерний проєкт, який почавс
 <script>
 const products=[
 {
-id:1,type:'inverter',name:'PowMr 6.2 kW',price:16000,
-spec:`Номінальна потужність: 6200W
-Вхідна напруга АКБ: 48V
-MPPT контролер: 120A
-Макс. PV потужність: 6500W
-ККД: до 93%
-Вихід: чиста синусоїда
-Захисти: КЗ, перевантаження, перегрів
-WiFi моніторинг`
+id:10,type:'kit',name:'Комплект для будинку (MAX)',price:46000,
+spec:`Інвертор: PowMr 6.2 kW
+Акумулятор: LiFePO₄ 10 kWh
+Напруга системи: 48V
+Призначення: повна автономія будинку
+В комплекті: силові кабелі, налаштування`
 },
 {
-id:2,type:'inverter',name:'PowMr 4.2 kW',price:13000,
-spec:`Номінальна потужність: 4200W
-Вхід АКБ: 24V
-MPPT: 100A
-PV: до 5000W
-ККД: 92%
-Захисти повні`
+id:11,type:'kit',name:'Комплект для квартири (OPTIMAL)',price:30000,
+spec:`Інвертор: PowMr 4.2 kW
+Акумулятор: LiFePO₄ 5 kWh
+Напруга: 24/48V
+Тихий режим, компактність`
 },
 {
-id:3,type:'inverter',name:'PowMr 1.6 kW',price:8000,
-spec:`Потужність: 1600W
-Вхід: 12V
-Для невеликих систем
-Чиста синусоїда`
-},
-{
-id:4,type:'battery',name:'LiFePO₄ 2.5 kWh',price:9000,
-spec:`Ємність: 2.56 kWh
-Напруга: 24V
-BMS: 100A
-Цикли: 6000+
-Температурний захист`
-},
-{
-id:5,type:'battery',name:'LiFePO₄ 5 kWh',price:17000,
-spec:`Ємність: 5.12 kWh
-Напруга: 48V
-BMS: 150A
-Цикли: 6000+
-Балансування`
+id:12,type:'kit',name:'Комплект Економ',price:17000,
+spec:`Інвертор: PowMr 1.6 kW
+Акумулятор: LiFePO₄ 2.5 kWh
+Для базового резервного живлення`
 }
 ];
 
@@ -319,19 +319,18 @@ menu.classList.remove('active');
 }
 
 function render(){
-homeList.innerHTML=invList.innerHTML=batList.innerHTML='';
+homeList.innerHTML=kitList.innerHTML='';
 products.forEach(p=>{
 const card=`
 <div class="card" onclick="openProduct(${p.id})">
-<div class="img">Фото товару</div>
+<div class="img">Фото комплекту</div>
 <div class="card-body">
 <h3>${p.name}</h3>
 <div class="price">${p.price} грн</div>
 <button class="buy">Купити</button>
 </div></div>`;
 homeList.innerHTML+=card;
-if(p.type==='inverter')invList.innerHTML+=card;
-if(p.type==='battery')batList.innerHTML+=card;
+if(p.type==='kit')kitList.innerHTML+=card;
 });
 }
 
@@ -347,10 +346,10 @@ modalBox.innerHTML=`
 <h2>${p.name}</h2>
 <div class="price">${p.price} грн</div>
 <button class="buy" onclick="add(${p.id})">Додати в корзину</button>
-<h3>Характеристики</h3>
+<h3>Опис та склад</h3>
 <pre>${p.spec}</pre>
 <h3>Доставка</h3>
-<p>Самовивіз або Нова Пошта</p>
+<p>Самовивіз з Печерська або Нова Пошта</p>
 </div>`;
 modal.classList.add('active');
 }
@@ -364,14 +363,18 @@ modal.classList.remove('active');
 function openCart(){
 show('cart');
 cartItems.innerHTML='';
+let total=0;
 cart.forEach((id,i)=>{
 const p=products.find(x=>x.id===id);
+total+=p.price;
 cartItems.innerHTML+=`
 <div class="cart-item">
-${p.name} — ${p.price} грн
+${p.name}
+<strong>${p.price} грн</strong>
 <button onclick="cart.splice(${i},1);openCart()">✕</button>
 </div>`;
 });
+cartTotal.textContent='Разом: '+total+' грн';
 }
 
 render();
