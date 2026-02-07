@@ -1,172 +1,318 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EnergyPro — Інвертори та батареї</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
-    body{background:#0e1116;color:#f1f5f9}
-    a{text-decoration:none;color:inherit}
-    button{cursor:pointer;border:none}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autonomy Energy — автономне живлення</title>
 
-    header{position:fixed;top:0;left:0;right:0;height:64px;background:#020617;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000}
-    .logo{font-size:20px;font-weight:700;color:#38bdf8}
-    .icons{display:flex;gap:14px;align-items:center}
-    .cart-badge{background:#38bdf8;color:#020617;border-radius:999px;padding:2px 8px;font-size:12px}
+<style>
+/* ===== BASE ===== */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:#f4f5f7;
+  color:#111827;
+}
+a{text-decoration:none;color:inherit}
+h1,h2,h3{margin-top:0}
 
-    .burger{font-size:26px}
+/* ===== HEADER ===== */
+header{
+  position:sticky;top:0;z-index:100;
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+}
+.header-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{font-weight:800;font-size:20px}
+.icons{display:flex;gap:18px;align-items:center}
+.icon-btn{cursor:pointer;font-weight:600;position:relative}
+.count{
+  position:absolute;
+  top:-6px;right:-10px;
+  background:#111827;color:#fff;
+  font-size:12px;padding:2px 6px;border-radius:50%;
+}
 
-    .drawer{position:fixed;top:0;left:-100%;width:80%;max-width:320px;height:100%;background:#020617;padding:20px;transition:.3s;z-index:2000}
-    .drawer.open{left:0}
-    .drawer h2{margin-bottom:20px}
-    .drawer a{display:block;padding:12px 0;border-bottom:1px solid #1e293b}
-    .drawer .close{position:absolute;top:16px;right:16px;font-size:24px}
+/* ===== BURGER ===== */
+#menu{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+}
+.menu-box{
+  width:280px;height:100%;
+  background:#fff;padding:20px;
+}
+.menu-box h3{margin-bottom:20px}
+.menu-box a{
+  display:block;
+  padding:12px 0;
+  border-bottom:1px solid #e5e7eb;
+  font-weight:600;
+}
+.close{font-size:26px;cursor:pointer}
 
-    main{padding-top:80px;padding-bottom:80px}
-    section{padding:24px}
-    h1,h2{margin-bottom:12px}
+/* ===== MAIN ===== */
+main{max-width:1200px;margin:auto;padding:30px 16px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:20px;
+}
+.card{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid #e5e7eb;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-4px)}
+.card-img{
+  height:180px;
+  background:linear-gradient(135deg,#e5e7eb,#f9fafb);
+  display:flex;align-items:center;justify-content:center;
+  color:#9ca3af;font-weight:700;
+}
+.card-body{padding:16px}
+.price{font-size:20px;font-weight:800;margin:8px 0}
+.btn{
+  display:block;text-align:center;
+  padding:12px;border-radius:10px;
+  background:#111827;color:#fff;
+  font-weight:600;margin-top:10px;
+}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+/* ===== PRODUCT PAGE ===== */
+#productPage{display:none}
+.product-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+@media(max-width:900px){
+  .product-wrap{grid-template-columns:1fr}
+}
+.gallery{
+  background:#fff;border-radius:14px;padding:16px
+}
+.gallery-main{
+  height:320px;
+  background:linear-gradient(135deg,#e5e7eb,#f9fafb);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;font-weight:700;color:#9ca3af
+}
+.thumbs{display:flex;gap:8px}
+.thumb{
+  flex:1;height:60px;
+  background:#e5e7eb;border-radius:8px
+}
+.specs table{
+  width:100%;border-collapse:collapse;margin-top:10px
+}
+.specs td{
+  padding:10px;border-bottom:1px solid #e5e7eb
+}
 
-    .card{background:#020617;border:1px solid #1e293b;border-radius:14px;overflow:hidden;transition:.2s}
-    .card:hover{transform:translateY(-4px)}
-    .img{height:160px;background:linear-gradient(135deg,#1e293b,#020617)}
-    .card-body{padding:14px}
-    .price{font-size:18px;font-weight:700;color:#38bdf8;margin:6px 0}
-    .buy{background:#38bdf8;color:#020617;padding:10px;border-radius:10px;width:100%;font-weight:600}
+/* ===== CART ===== */
+#cartPage{display:none}
+.cart-item{
+  display:flex;justify-content:space-between;
+  background:#fff;padding:14px;
+  border-radius:12px;margin-bottom:10px
+}
+.remove{cursor:pointer;color:#ef4444;font-weight:700}
 
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,.95);display:none;z-index:3000;overflow:auto}
-    .modal.open{display:block}
-    .modal-content{max-width:900px;margin:40px auto;background:#020617;border-radius:18px;padding:24px}
-    .modal-close{position:fixed;top:20px;right:20px;font-size:28px}
-
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-    .gallery div{height:120px;background:#1e293b;border-radius:10px}
-
-    table{width:100%;border-collapse:collapse;margin-top:16px}
-    td{border-bottom:1px solid #1e293b;padding:10px}
-    td:first-child{color:#94a3b8;width:40%}
-
-    .cart{position:fixed;right:-100%;top:0;width:100%;max-width:420px;height:100%;background:#020617;z-index:4000;transition:.3s;display:flex;flex-direction:column}
-    .cart.open{right:0}
-    .cart-header{padding:16px;font-size:20px;font-weight:700;display:flex;justify-content:space-between}
-    .cart-items{flex:1;overflow:auto;padding:16px}
-    .cart-item{display:flex;justify-content:space-between;margin-bottom:10px}
-    .cart-footer{padding:16px}
-
-    footer{background:#020617;padding:24px;text-align:center;color:#64748b}
-  </style>
+/* ===== FOOTER ===== */
+footer{
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+  padding:30px;text-align:center;margin-top:40px
+}
+</style>
 </head>
 <body>
 
 <header>
-  <div class="burger" onclick="toggleDrawer()">☰</div>
-  <div class="logo">EnergyPro</div>
-  <div class="icons">
-    <div onclick="toggleCart()">🛒 <span id="cartCount" class="cart-badge">0</span></div>
+  <div class="header-inner">
+    <div class="logo" onclick="goHome()">AutonomyEnergy</div>
+    <div class="icons">
+      <div class="icon-btn" onclick="openCart()">Кошик
+        <span id="cartCount" class="count">0</span>
+      </div>
+      <div class="icon-btn" onclick="openMenu()">☰</div>
+    </div>
   </div>
 </header>
 
-<div class="drawer" id="drawer">
-  <div class="close" onclick="toggleDrawer()">✕</div>
-  <h2>Меню</h2>
-  <a href="#catalog" onclick="toggleDrawer()">Каталог</a>
-  <a href="#inverters" onclick="toggleDrawer()">Інвертори</a>
-  <a href="#batteries" onclick="toggleDrawer()">Батареї</a>
-  <a href="#kits" onclick="toggleDrawer()">Комплекти</a>
-  <a href="#about" onclick="toggleDrawer()">Про нас</a>
-  <a href="#delivery" onclick="toggleDrawer()">Доставка</a>
+<!-- BURGER -->
+<div id="menu" onclick="closeMenu(event)">
+  <div class="menu-box">
+    <div class="close" onclick="hideMenu()">✕</div>
+    <h3>Меню</h3>
+    <a onclick="goHome()">Каталог</a>
+    <a onclick="showAbout()">Про нас</a>
+    <a onclick="showDelivery()">Доставка</a>
+    <a onclick="showContacts()">Контакти</a>
+  </div>
 </div>
 
 <main>
 
+<!-- CATALOG -->
 <section id="catalog">
-<h1>Каталог</h1>
-<div class="grid" id="catalogGrid"></div>
+<h1>Інвертори PowMr</h1>
+<div class="grid">
+  <div class="card" onclick="openProduct('powmr6200')">
+    <div class="card-img">PowMr 6.2 kW</div>
+    <div class="card-body">
+      <h3>PowMr 6.2 kW 48V</h3>
+      <div class="price">16 000 грн</div>
+      <div class="btn">Переглянути</div>
+    </div>
+  </div>
+</div>
 </section>
 
-<section id="inverters">
-<h2>Інвертори PowMr</h2>
-<div class="grid" id="inverterGrid"></div>
+<!-- PRODUCT -->
+<section id="productPage">
+<div class="product-wrap">
+  <div class="gallery">
+    <div class="gallery-main">Фото товару</div>
+    <div class="thumbs">
+      <div class="thumb"></div>
+      <div class="thumb"></div>
+      <div class="thumb"></div>
+    </div>
+  </div>
+
+  <div>
+    <h1 id="pTitle"></h1>
+    <div class="price" id="pPrice"></div>
+    <div class="btn" onclick="addToCart()">Додати в кошик</div>
+
+    <h2>Характеристики</h2>
+    <div class="specs"><table id="pSpecs"></table></div>
+
+    <h2>Доставка та оплата</h2>
+    <p>✔ Самовивіз з Печерську — безкоштовно</p>
+    <p>✔ Нова Пошта по Україні</p>
+    <p>✔ Оплата картою (скоро)</p>
+  </div>
+</div>
 </section>
 
-<section id="batteries">
-<h2>Батареї</h2>
-<div class="grid" id="batteryGrid"></div>
+<!-- CART -->
+<section id="cartPage">
+<h1>Ваш кошик</h1>
+<div id="cartList"></div>
+<div class="btn">Оплатити (заглушка)</div>
 </section>
 
-<section id="kits">
-<h2>Готові комплекти</h2>
-<div class="grid" id="kitGrid"></div>
+<!-- ABOUT -->
+<section id="about" style="display:none">
+<h1>Про нас</h1>
+<p>Autonomy Energy — це локальний бізнес, створений у Києві з метою дати людям реальну енергонезалежність у складні часи...</p>
 </section>
 
-<section id="about">
-<h2>Про нас</h2>
-<p>EnergyPro — це український бізнес, створений у відповідь на реальні енергетичні виклики. Ми починали як невелика команда інженерів на Печерську в Києві, які допомагали друзям і знайомим забезпечити резервне живлення для квартир та будинків.</p>
-<p>З роками ми зібрали практичний досвід, протестували десятки моделей інверторів та акумуляторів і сформували надійні рішення, які працюють у реальних умовах України.</p>
+<!-- DELIVERY -->
+<section id="delivery" style="display:none">
+<h1>Доставка</h1>
+<p>✔ Самовивіз з Печерську</p>
+<p>✔ Нова Пошта</p>
+<p>✔ Надійна упаковка</p>
 </section>
 
-<section id="delivery">
-<h2>Доставка та оплата</h2>
-<p><b>Самовивіз:</b> безкоштовно з Печерського району м. Київ (за попередньою домовленістю).</p>
-<p><b>Доставка по Києву:</b> курʼєром 1–2 дні.</p>
-<p><b>Доставка по Україні:</b> Нова Пошта, післяплата або повна оплата.</p>
+<!-- CONTACTS -->
+<section id="contacts" style="display:none">
+<h1>Контакти</h1>
+<p>Телефон: +380 ХХ ХХХ ХХ ХХ</p>
+<p>Telegram: @yourtelegram</p>
 </section>
 
 </main>
 
-<footer>© EnergyPro, 2026. Надійні енергетичні рішення</footer>
-
-<div class="modal" id="productModal"></div>
-
-<div class="cart" id="cart">
-  <div class="cart-header">Корзина <span onclick="toggleCart()">✕</span></div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer"><button class="buy">Оформити замовлення</button></div>
-</div>
+<footer>
+© 2026 Autonomy Energy • Україна
+</footer>
 
 <script>
-const products=[
-{ id:1,cat:'inverter',name:'PowMr 6.2kW',price:52000,desc:'Потужний гібридний інвертор',spec:{Power:'6200W',Voltage:'48V',MPPT:'120A',Phase:'1'}},
-{ id:2,cat:'inverter',name:'PowMr 4.2kW',price:41000,desc:'Для дому та квартири',spec:{Power:'4200W',Voltage:'48V',MPPT:'100A',Phase:'1'}},
-{ id:3,cat:'battery',name:'LiFePO4 5kWh',price:38000,desc:'Надійна батарея',spec:{Capacity:'5kWh',Voltage:'51.2V',Cycles:'6000+'}}
-];
+const products={
+powmr6200:{
+title:"PowMr 6.2 kW 48V",
+price:"16 000 грн",
+specs:{
+"Номінальна потужність":"6200 W",
+"Пікова потужність":"12400 W",
+"Напруга АКБ":"48V",
+"MPPT":"120A",
+"Синусоїда":"Чиста",
+"Захист":"Перегрів, КЗ, перенапруга"
+}}
+};
+let current=null;
+let cart=JSON.parse(localStorage.getItem("cart")||"[]");
 
-let cart=[];
-
-function render(){
-  const inv=document.getElementById('inverterGrid');
-  const bat=document.getElementById('batteryGrid');
-  inv.innerHTML='';bat.innerHTML='';
-  products.forEach(p=>{
-    const card=document.createElement('div');card.className='card';
-    card.innerHTML=`<div class=img></div><div class=card-body><h3>${p.name}</h3><div class=price>${p.price} ₴</div><button class=buy>Купити</button></div>`;
-    card.onclick=()=>openProduct(p);
-    (p.cat==='inverter'?inv:bat).appendChild(card);
-  })
+function openProduct(id){
+current=products[id];
+hideAll();
+document.getElementById("productPage").style.display="block";
+pTitle.innerText=current.title;
+pPrice.innerText=current.price;
+let t="";
+for(let k in current.specs){
+t+=`<tr><td>${k}</td><td>${current.specs[k]}</td></tr>`;
 }
-
-function openProduct(p){
-  const m=document.getElementById('productModal');
-  let rows=''; for(let k in p.spec){rows+=`<tr><td>${k}</td><td>${p.spec[k]}</td></tr>`}
-  m.innerHTML=`<div class="modal-content"><div class="modal-close" onclick="closeProduct()">✕</div><h2>${p.name}</h2><div class=gallery><div></div><div></div><div></div></div><div class=price>${p.price} ₴</div><button class=buy onclick='addToCart(${p.id})'>В корзину</button><h3>Характеристики</h3><table>${rows}</table><h3>Доставка</h3><p>Самовивіз або доставка Новою Поштою</p></div>`;
-  m.classList.add('open');
+pSpecs.innerHTML=t;
 }
-function closeProduct(){document.getElementById('productModal').classList.remove('open')}
-
-function addToCart(id){cart.push(products.find(p=>p.id===id));updateCart()}
-function updateCart(){
-  document.getElementById('cartCount').innerText=cart.length;
-  const ci=document.getElementById('cartItems');ci.innerHTML='';
-  cart.forEach((p,i)=>{ci.innerHTML+=`<div class=cart-item>${p.name}<span onclick='removeFromCart(${i})'>✕</span></div>`})
+function addToCart(){
+cart.push(current);
+localStorage.setItem("cart",JSON.stringify(cart));
+updateCount();
+alert("Додано в кошик");
 }
-function removeFromCart(i){cart.splice(i,1);updateCart()}
+function openCart(){
+hideAll();
+cartPage.style.display="block";
+renderCart();
+}
+function renderCart(){
+cartList.innerHTML="";
+cart.forEach((i,n)=>{
+cartList.innerHTML+=`
+<div class="cart-item">
+<div>${i.title}</div>
+<div class="remove" onclick="removeItem(${n})">✕</div>
+</div>`;
+});
+}
+function removeItem(i){
+cart.splice(i,1);
+localStorage.setItem("cart",JSON.stringify(cart));
+renderCart();updateCount();
+}
+function updateCount(){cartCount.innerText=cart.length}
+function hideAll(){
+["catalog","productPage","cartPage","about","delivery","contacts"]
+.forEach(id=>document.getElementById(id).style.display="none");
+}
+function goHome(){hideAll();catalog.style.display="block"}
+function openMenu(){menu.style.display="block"}
+function hideMenu(){menu.style.display="none"}
+function closeMenu(e){if(e.target.id==="menu")hideMenu()}
+function showAbout(){hideMenu();hideAll();about.style.display="block"}
+function showDelivery(){hideMenu();hideAll();delivery.style.display="block"}
+function showContacts(){hideMenu();hideAll();contacts.style.display="block"}
 
-function toggleDrawer(){document.getElementById('drawer').classList.toggle('open')}
-function toggleCart(){document.getElementById('cart').classList.toggle('open')}
-
-render();
+updateCount();
 </script>
+
 </body>
 </html>
